@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function StudentProfile() {
   const navigate = useNavigate();
@@ -12,6 +13,31 @@ export default function StudentProfile() {
     college: '',
     role: '',
   });
+
+  const [isUploading, setIsUploading] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      
+      const response = await axios.post('http://localhost:8000/api/profile/resume-upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setAnalysisResult(response.data);
+    } catch (error) {
+      console.error('Error uploading resume:', error);
+      alert('Failed to analyze resume. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleNext = () => {
     if (currentStep === 1) {
@@ -199,65 +225,93 @@ export default function StudentProfile() {
           {currentStep === 2 && (
             <div className="animate-toast-in">
               <div className="flex flex-col gap-6">
-                <div className="flex justify-between items-end">
-                  <div>
-                    <h2 className="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
-                      <span className="material-symbols-outlined text-secondary">document_scanner</span>
-                      AI Resume Analysis
-                    </h2>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">We've parsed your upload. Review the insights below to improve your match rate.</p>
-                  </div>
-                  <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-high transition-colors bg-white/50 backdrop-blur-sm">
-                    <span className="material-symbols-outlined text-[18px]">upload_file</span> Re-upload
-                  </button>
+                <div>
+                  <h2 className="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary">document_scanner</span>
+                    Resume Upload
+                  </h2>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Upload your resume to tailor your interview questions and feedback.</p>
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="md:col-span-1 bg-gradient-to-br from-surface-container-lowest to-surface-container-low rounded-xl p-6 border border-white/60 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-secondary-container/10 mix-blend-overlay"></div>
-                    <h3 className="font-label-md text-label-md text-on-surface-variant mb-4 relative z-10">Overall ATS Score</h3>
-                    <div className="relative w-32 h-32 flex items-center justify-center mb-2 z-10">
-                      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                        <circle className="text-surface-variant" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeWidth="8"></circle>
-                        <circle className="text-tertiary-fixed-dim drop-shadow-[0_0_8px_rgba(105,222,124,0.4)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeDasharray="251.2" strokeDashoffset="70.3" strokeWidth="8"></circle>
-                      </svg>
-                      <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <span className="font-display-lg text-display-lg text-on-surface leading-none">72</span>
-                        <span className="font-label-sm text-label-sm text-on-surface-variant">/100</span>
+                {analysisResult ? (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="md:col-span-1 bg-gradient-to-br from-surface-container-lowest to-surface-container-low rounded-xl p-6 border border-white/60 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
+                      <div className="absolute inset-0 bg-secondary-container/10 mix-blend-overlay"></div>
+                      <h3 className="font-label-md text-label-md text-on-surface-variant mb-4 relative z-10">Overall ATS Score</h3>
+                      <div className="relative w-32 h-32 flex items-center justify-center mb-2 z-10">
+                        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                          <circle className="text-surface-variant" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeWidth="8"></circle>
+                          <circle className="text-tertiary-fixed-dim drop-shadow-[0_0_8px_rgba(105,222,124,0.4)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeDasharray="251.2" strokeDashoffset={`${251.2 - (251.2 * analysisResult.score / 100)}`} strokeWidth="8"></circle>
+                        </svg>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          <span className="font-display-lg text-display-lg text-on-surface leading-none">{analysisResult.score}</span>
+                          <span className="font-label-sm text-label-sm text-on-surface-variant">/100</span>
+                        </div>
+                      </div>
+                      <span className="inline-block px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm text-label-sm font-medium">Analyzed by Groq</span>
+                    </div>
+                    
+                    <div className="md:col-span-2 flex flex-col gap-3">
+                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-secondary-fixed-dim/50 shadow-sm flex gap-4 items-start relative overflow-hidden">
+                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed-dim"></div>
+                        <div className="p-2 rounded-full bg-secondary-container/20 text-secondary-fixed-dim">
+                          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>key</span>
+                        </div>
+                        <div>
+                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Missing Keywords</h4>
+                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">
+                            {analysisResult.keywords_missing?.join(', ')}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
+                        <div className="p-2 rounded-full bg-tertiary-container/20 text-tertiary"><span className="material-symbols-outlined">military_tech</span></div>
+                        <div>
+                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Impact Feedback</h4>
+                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">{analysisResult.impact_feedback}</p>
+                        </div>
+                      </div>
+                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
+                        <div className="p-2 rounded-full bg-primary-container/50 text-primary"><span className="material-symbols-outlined">format_align_left</span></div>
+                        <div>
+                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Formatting Feedback</h4>
+                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">{analysisResult.format_feedback}</p>
+                        </div>
                       </div>
                     </div>
-                    <span className="inline-block px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm text-label-sm font-medium">Strong Candidate</span>
                   </div>
-                  
-                  <div className="md:col-span-2 flex flex-col gap-3">
-                    <div className="bg-surface-container-lowest rounded-xl p-4 border border-secondary-fixed-dim/50 shadow-sm flex gap-4 items-start relative overflow-hidden animate-pulse-rank">
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed-dim"></div>
-                      <div className="p-2 rounded-full bg-secondary-container/20 text-secondary-fixed-dim">
-                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>key</span>
+                ) : (
+                  <>
+                    <div 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="border-2 border-dashed border-outline-variant/60 rounded-2xl p-12 flex flex-col items-center justify-center text-center bg-surface-container-lowest hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-secondary-container/30 text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        {isUploading ? (
+                          <span className="material-symbols-outlined text-[32px] animate-spin">refresh</span>
+                        ) : (
+                          <span className="material-symbols-outlined text-[32px]">upload_file</span>
+                        )}
                       </div>
-                      <div>
-                        <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Keyword Optimization</h4>
-                        <p className="font-body-md text-body-md text-on-surface-variant text-sm">
-                          Missing core keywords for your target role. Add: <span className="font-mono text-xs bg-surface-variant px-1 rounded">Design Systems</span>, <span className="font-mono text-xs bg-surface-variant px-1 rounded">Figma</span>.
-                        </p>
-                      </div>
+                      <h3 className="font-label-lg text-label-lg text-on-surface mb-2">
+                        {isUploading ? 'Analyzing Resume...' : 'Click to upload or drag and drop'}
+                      </h3>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">PDF, DOCX, or TXT (Max 5MB)</p>
+                      <input 
+                        ref={fileInputRef}
+                        type="file" 
+                        className="hidden" 
+                        accept=".pdf,.doc,.docx,.txt" 
+                        onChange={handleFileUpload}
+                      />
                     </div>
-                    <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
-                      <div className="p-2 rounded-full bg-tertiary-container/20 text-tertiary"><span className="material-symbols-outlined">military_tech</span></div>
-                      <div>
-                        <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Impactful Achievements</h4>
-                        <p className="font-body-md text-body-md text-on-surface-variant text-sm">Great use of metrics. "Increased retention by 15%" stands out.</p>
-                      </div>
+                    
+                    <div className="bg-primary/5 rounded-xl p-4 flex items-start gap-3 border border-primary/10">
+                      <span className="material-symbols-outlined text-primary mt-0.5">info</span>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Our AI will analyze your resume in the background once you complete your profile, ensuring your mock interviews accurately reflect your past experience.</p>
                     </div>
-                    <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
-                      <div className="p-2 rounded-full bg-error-container/50 text-error"><span className="material-symbols-outlined">format_align_left</span></div>
-                      <div>
-                        <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Formatting Issues</h4>
-                        <p className="font-body-md text-body-md text-on-surface-variant text-sm">Two‑column layouts confuse ATS. Switch to single column.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             </div>
           )}

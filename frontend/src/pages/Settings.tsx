@@ -5,6 +5,13 @@ export default function Settings() {
   const [difficulty, setDifficulty] = useState('Medium');
   const [role, setRole] = useState('Product Manager');
   const [isEditingRole, setIsEditingRole] = useState(false);
+  const [groqApiKey, setGroqApiKey] = useState(localStorage.getItem('groqApiKey') || '');
+
+  const handleSave = () => {
+    localStorage.setItem('groqApiKey', groqApiKey);
+    // Optional: show a toast or alert
+    alert('Settings saved successfully!');
+  };
 
   const difficultyDescriptions: Record<string, string> = {
     'Easy': 'Beginner-friendly sessions with guided hints and supportive AI behavior.',
@@ -129,6 +136,30 @@ export default function Settings() {
           </div>
         </section>
 
+        {/* API Integrations Section */}
+        <section className="glass-card rounded-3xl p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="material-symbols-outlined text-primary">api</span>
+            <h2 className="font-headline-md text-headline-md">API Integrations</h2>
+          </div>
+          <div className="space-y-6">
+            <div>
+              <p className="font-label-md text-label-md mb-2">Groq API Key</p>
+              <p className="text-label-sm text-on-surface-variant mb-4">Required for AI mock interviews. Your key is stored securely in your browser and never sent anywhere except to the backend to proxy to Groq.</p>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">key</span>
+                <input 
+                  type="password" 
+                  value={groqApiKey}
+                  onChange={(e) => setGroqApiKey(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-container/50 border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md" 
+                  placeholder="gsk_..."
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Account & Role Section */}
         <section className="glass-card rounded-3xl p-8 shadow-sm">
           <div className="flex items-center gap-3 mb-6">
@@ -160,7 +191,7 @@ export default function Settings() {
       {/* Footer Actions */}
       <div className="fixed bottom-0 left-0 md:left-64 right-0 p-6 glass-card border-t border-white/40 flex justify-end gap-4 z-40">
         <button className="px-8 py-3 rounded-xl font-bold border border-outline text-on-surface-variant hover:bg-surface-container-low transition-all">Cancel</button>
-        <button className="px-10 py-3 rounded-xl font-bold primary-gradient text-white shadow-lg hover:shadow-primary/40 active:scale-95 transition-all">Save Changes</button>
+        <button onClick={handleSave} className="px-10 py-3 rounded-xl font-bold primary-gradient text-white shadow-lg hover:shadow-primary/40 active:scale-95 transition-all">Save Changes</button>
       </div>
     </div>
   );

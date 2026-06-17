@@ -1,20 +1,51 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api';
 
 export default function StudentLogin() {
   const [tab, setTab] = useState<'login' | 'signup'>('login');
   const navigate = useNavigate();
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  // Form states
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
+  const [signupCollege, setSignupCollege] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Proceed to dashboard without auth checks for now
-    navigate('/student/dashboard');
+    setErrorMsg('');
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email: loginEmail,
+        password: loginPassword,
+      });
+      localStorage.setItem('token', response.data.access_token);
+      navigate('/student/dashboard');
+    } catch (err: any) {
+      setErrorMsg(err.response?.data?.detail || 'Login failed');
+    }
   };
 
-  const handleSignupSubmit = (e: React.FormEvent) => {
+  const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Redirect to Profile Completion screen after sign up
-    navigate('/student/profile');
+    setErrorMsg('');
+    try {
+      const response = await axios.post(`${API_URL}/auth/register`, {
+        email: signupEmail,
+        password: signupPassword,
+        college_code: signupCollege,
+        role: 'student'
+      });
+      localStorage.setItem('token', response.data.access_token);
+      navigate('/student/profile');
+    } catch (err: any) {
+      setErrorMsg(err.response?.data?.detail || 'Registration failed');
+    }
   };
 
   return (
@@ -79,6 +110,12 @@ export default function StudentLogin() {
             </button>
           </div>
 
+          {errorMsg && (
+            <div className="mb-4 p-3 bg-error-container/20 border border-error/50 rounded-xl text-error text-center font-label-md">
+              {errorMsg}
+            </div>
+          )}
+
           {/* Login Form */}
           {tab === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-5 relative z-10 animate-fade-up">
@@ -86,7 +123,7 @@ export default function StudentLogin() {
                 <label className="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Email Address</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
-                  <input required className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email" />
+                  <input required value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email" />
                 </div>
               </div>
               <div className="space-y-1.5">
@@ -96,7 +133,7 @@ export default function StudentLogin() {
                 </div>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
-                  <input required className="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="••••••••" type="password" />
+                  <input required value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="••••••••" type="password" />
                   <button className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
                     <span className="material-symbols-outlined text-[20px]">visibility_off</span>
                   </button>
@@ -116,21 +153,21 @@ export default function StudentLogin() {
                 <label className="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Email Address</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
-                  <input required className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email" />
+                  <input required value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <label className="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Password</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
-                  <input required className="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="Create a password" type="password" />
+                  <input required value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} className="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="Create a password" type="password" />
                 </div>
               </div>
               <div className="space-y-1.5">
                 <label className="font-label-sm text-label-sm text-on-surface-variant ml-1 block">College Code <span className="text-outline/60 font-normal">(Optional)</span></label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">school</span>
-                  <input className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60 uppercase" placeholder="e.g. STANFORD-24" type="text" />
+                  <input value={signupCollege} onChange={(e) => setSignupCollege(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60 uppercase" placeholder="e.g. STANFORD-24" type="text" />
                 </div>
               </div>
               <button className="w-full primary-gradient-btn text-white font-label-md text-label-md py-3.5 rounded-xl mt-2 flex items-center justify-center gap-2" type="submit">
