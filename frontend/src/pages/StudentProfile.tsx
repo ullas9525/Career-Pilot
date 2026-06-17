@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,6 +13,20 @@ export default function StudentProfile() {
     college: '',
     role: '',
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.sub) {
+          setFormData(prev => ({ ...prev, email: payload.sub }));
+        }
+      } catch (e) {
+        console.error('Failed to parse token for email', e);
+      }
+    }
+  }, []);
 
   const [isUploading, setIsUploading] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
@@ -98,7 +112,7 @@ export default function StudentProfile() {
                     key={step} 
                     className="step-indicator flex flex-col items-center gap-2 bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-xl cursor-pointer transition-all duration-300"
                     onClick={() => {
-                      if (step <= currentStep + 1) setCurrentStep(step);
+                      if (step < currentStep) setCurrentStep(step);
                     }}
                   >
                     <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-200 font-headline-md text-headline-md
@@ -146,8 +160,8 @@ export default function StudentProfile() {
                       type="email" 
                       placeholder="alex@university.edu" 
                       value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                      disabled
+                      className="w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant text-on-surface-variant cursor-not-allowed transition-all"
                     />
                   </div>
                   <div>
