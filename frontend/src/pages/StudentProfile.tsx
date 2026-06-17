@@ -190,14 +190,6 @@ export default function StudentProfile() {
                     </div>
                   </div>
 
-                  <div className="md:col-span-2">
-                    <label className="font-label-sm text-label-sm text-on-surface-variant block mb-1">LinkedIn Profile (optional)</label>
-                    <input type="url" placeholder="https://linkedin.com/in/yourname" className="w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="font-label-sm text-label-sm text-on-surface-variant block mb-1">GitHub Profile (optional)</label>
-                    <input type="url" placeholder="https://github.com/yourusername" className="w-full px-4 py-3 rounded-xl bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" />
-                  </div>
                 </div>
               </div>
             </div>

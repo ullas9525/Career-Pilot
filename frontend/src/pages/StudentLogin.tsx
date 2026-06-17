@@ -13,8 +13,8 @@ export default function StudentLogin() {
 
   const handleSignupSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Setup flow: normally goes to Profile Completion, but mapping to Dashboard for now
-    navigate('/student/dashboard');
+    // Redirect to Profile Completion screen after sign up
+    navigate('/student/profile');
   };
 
   return (

@@ -64,6 +64,22 @@ export default function Sidebar() {
               {isActive('/student/mock-interview') && <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r-full"></div>}
               <span className="material-symbols-outlined" style={isActive('/student/mock-interview') ? { fontVariationSettings: "'FILL' 1" } : {}}>psychology</span> Mock Interview
             </Link>
+            <Link to="/student/cohort" className={`font-label-md text-label-md rounded-xl px-4 py-3 flex items-center gap-3 relative overflow-hidden transition-colors ${isActive('/student/cohort') ? 'bg-primary-container/20 text-primary font-semibold' : 'text-on-surface-variant hover:bg-white/40'}`}>
+              {isActive('/student/cohort') && <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r-full"></div>}
+              <span className="material-symbols-outlined" style={isActive('/student/cohort') ? { fontVariationSettings: "'FILL' 1" } : {}}>groups</span> My Cohort
+            </Link>
+            <Link to="/student/leaderboard" className={`font-label-md text-label-md rounded-xl px-4 py-3 flex items-center gap-3 relative overflow-hidden transition-colors ${isActive('/student/leaderboard') ? 'bg-primary-container/20 text-primary font-semibold' : 'text-on-surface-variant hover:bg-white/40'}`}>
+              {isActive('/student/leaderboard') && <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r-full"></div>}
+              <span className="material-symbols-outlined" style={isActive('/student/leaderboard') ? { fontVariationSettings: "'FILL' 1" } : {}}>leaderboard</span> Leaderboard
+            </Link>
+            <Link to="/student/post-interview" className={`font-label-md text-label-md rounded-xl px-4 py-3 flex items-center gap-3 relative overflow-hidden transition-colors ${isActive('/student/post-interview') ? 'bg-primary-container/20 text-primary font-semibold' : 'text-on-surface-variant hover:bg-white/40'}`}>
+              {isActive('/student/post-interview') && <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r-full"></div>}
+              <span className="material-symbols-outlined" style={isActive('/student/post-interview') ? { fontVariationSettings: "'FILL' 1" } : {}}>check_circle</span> Post Interview
+            </Link>
+            <Link to="/student/profile" className={`font-label-md text-label-md rounded-xl px-4 py-3 flex items-center gap-3 relative overflow-hidden transition-colors ${isActive('/student/profile') ? 'bg-primary-container/20 text-primary font-semibold' : 'text-on-surface-variant hover:bg-white/40'}`}>
+              {isActive('/student/profile') && <div className="absolute left-0 top-0 h-full w-1 bg-primary rounded-r-full"></div>}
+              <span className="material-symbols-outlined" style={isActive('/student/profile') ? { fontVariationSettings: "'FILL' 1" } : {}}>person</span> Profile
+            </Link>
           </>
         )}
       </div>
