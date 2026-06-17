@@ -26,3 +26,10 @@ class Token(BaseModel):
     access_token: str
     token_type: str
     user: UserResponse
+
+class InterviewStart(BaseModel):
+    role: str
+
+class InterviewChat(BaseModel):
+    interview_id: int
+    message: str

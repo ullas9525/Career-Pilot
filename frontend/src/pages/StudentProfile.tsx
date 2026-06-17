@@ -38,16 +38,17 @@ export default function StudentProfile() {
 
     setIsUploading(true);
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      const uploadData = new FormData();
+      uploadData.append('file', file);
+      uploadData.append('role', formData.role || 'Software Engineer');
       
-      const response = await axios.post('http://localhost:8000/api/profile/resume-upload', formData, {
+      const response = await axios.post('http://localhost:8000/api/profile/resume-upload', uploadData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setAnalysisResult(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error uploading resume:', error);
-      alert('Failed to analyze resume. Please try again.');
+      alert('Failed to analyze resume: ' + (error.response?.data?.detail || error.message));
     } finally {
       setIsUploading(false);
     }
@@ -248,49 +249,100 @@ export default function StudentProfile() {
                 </div>
                 
                 {analysisResult ? (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="md:col-span-1 bg-gradient-to-br from-surface-container-lowest to-surface-container-low rounded-xl p-6 border border-white/60 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-secondary-container/10 mix-blend-overlay"></div>
-                      <h3 className="font-label-md text-label-md text-on-surface-variant mb-4 relative z-10">Overall ATS Score</h3>
-                      <div className="relative w-32 h-32 flex items-center justify-center mb-2 z-10">
-                        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                          <circle className="text-surface-variant" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeWidth="8"></circle>
-                          <circle className="text-tertiary-fixed-dim drop-shadow-[0_0_8px_rgba(105,222,124,0.4)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeDasharray="251.2" strokeDashoffset={`${251.2 - (251.2 * analysisResult.score / 100)}`} strokeWidth="8"></circle>
-                        </svg>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <span className="font-display-lg text-display-lg text-on-surface leading-none">{analysisResult.score}</span>
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">/100</span>
+                  <div className="flex flex-col gap-6 animate-fade-in">
+                    {/* Header: Score & Target Role Alignment */}
+                    <div className="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-outline-variant/30 shadow-lg relative overflow-hidden">
+                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-tertiary via-primary to-secondary"></div>
+                      
+                      <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
+                        
+                        {/* Score Ring */}
+                        <div className="flex-shrink-0 flex flex-col items-center">
+                          <div className="relative w-40 h-40 flex items-center justify-center mb-2">
+                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                              <circle className="text-surface-variant" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" strokeWidth="8"></circle>
+                              <circle 
+                                className={`${analysisResult.score >= 80 ? 'text-tertiary' : analysisResult.score >= 60 ? 'text-secondary' : 'text-error'} drop-shadow-md transition-all duration-1000`} 
+                                cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" 
+                                strokeDasharray="251.2" strokeDashoffset={`${251.2 - (251.2 * analysisResult.score / 100)}`} strokeWidth="8"
+                                strokeLinecap="round"
+                              ></circle>
+                            </svg>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                              <span className="font-display-lg text-5xl text-on-surface leading-none font-bold">{analysisResult.score}</span>
+                              <span className="font-label-sm text-on-surface-variant mt-1">/ 100</span>
+                            </div>
+                          </div>
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-xs font-medium">
+                            <span className="material-symbols-outlined text-[14px]">auto_awesome</span> ATS Score
+                          </span>
                         </div>
-                      </div>
-                      <span className="inline-block px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary font-label-sm text-label-sm font-medium">Analyzed by Groq</span>
-                    </div>
-                    
-                    <div className="md:col-span-2 flex flex-col gap-3">
-                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-secondary-fixed-dim/50 shadow-sm flex gap-4 items-start relative overflow-hidden">
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary-fixed-dim"></div>
-                        <div className="p-2 rounded-full bg-secondary-container/20 text-secondary-fixed-dim">
-                          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>key</span>
-                        </div>
-                        <div>
-                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Missing Keywords</h4>
-                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">
-                            {analysisResult.keywords_missing?.join(', ')}
+
+                        {/* Alignment Banner */}
+                        <div className="flex-1 text-center md:text-left">
+                          <h3 className="font-headline-md text-2xl text-on-surface font-bold mb-3 flex items-center justify-center md:justify-start gap-2">
+                            <span className="material-symbols-outlined text-secondary">radar</span>
+                            Role Alignment
+                          </h3>
+                          <p className="font-body-lg text-on-surface-variant leading-relaxed whitespace-pre-wrap">
+                            {analysisResult.target_role_match}
                           </p>
                         </div>
+
                       </div>
-                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
-                        <div className="p-2 rounded-full bg-tertiary-container/20 text-tertiary"><span className="material-symbols-outlined">military_tech</span></div>
-                        <div>
-                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Impact Feedback</h4>
-                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">{analysisResult.impact_feedback}</p>
+                    </div>
+
+                    {/* Breakdown Section */}
+                    <div className="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-outline-variant/30 shadow-md">
+                      <h3 className="font-headline-md text-xl text-on-surface font-bold mb-6 flex items-center gap-2 border-b border-outline-variant/30 pb-4">
+                        <span className="material-symbols-outlined text-tertiary">analytics</span>
+                        Score Breakdown & Rubrics
+                      </h3>
+                      
+                      {/* Sub Scores Grid */}
+                      {analysisResult.sub_scores && analysisResult.sub_scores.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                          {analysisResult.sub_scores.map((sub: any, idx: number) => (
+                            <div key={idx} className="bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 flex flex-col gap-2">
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="font-label-md font-semibold text-on-surface">{sub.category}</span>
+                                <span className="font-mono font-bold text-primary">{sub.score} / {sub.max}</span>
+                              </div>
+                              <div className="w-full bg-outline-variant/30 rounded-full h-1.5 overflow-hidden">
+                                <div 
+                                  className={`h-full rounded-full ${sub.score / sub.max >= 0.8 ? 'bg-tertiary' : sub.score / sub.max >= 0.5 ? 'bg-secondary' : 'bg-error'}`} 
+                                  style={{ width: `${(sub.score / sub.max) * 100}%` }}
+                                ></div>
+                              </div>
+                              <p className="text-xs text-on-surface-variant leading-relaxed mt-1">{sub.reason}</p>
+                            </div>
+                          ))}
                         </div>
+                      )}
+
+                      <div className="prose prose-sm md:prose-base max-w-none text-on-surface-variant leading-loose whitespace-pre-wrap">
+                        {analysisResult.score_explanation}
                       </div>
-                      <div className="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant/30 shadow-sm flex gap-4 items-start">
-                        <div className="p-2 rounded-full bg-primary-container/50 text-primary"><span className="material-symbols-outlined">format_align_left</span></div>
-                        <div>
-                          <h4 className="font-label-md text-label-md text-on-surface font-semibold mb-1">Formatting Feedback</h4>
-                          <p className="font-body-md text-body-md text-on-surface-variant text-sm">{analysisResult.format_feedback}</p>
-                        </div>
+                    </div>
+
+                    {/* Action Plan Section */}
+                    <div className="bg-surface-container-lowest rounded-2xl p-6 md:p-8 border border-primary/20 shadow-md relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full pointer-events-none"></div>
+                      <h3 className="font-headline-md text-xl text-primary font-bold mb-6 flex items-center gap-2">
+                        <span className="material-symbols-outlined">trending_up</span>
+                        Your Action Plan
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {analysisResult.improvement_suggestions?.map((suggestion: string, idx: number) => (
+                          <div key={idx} className="flex gap-4 items-start bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 hover:border-primary/30 transition-colors group">
+                            <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
+                              <span className="font-bold text-sm">{idx + 1}</span>
+                            </div>
+                            <p className="font-body-md text-on-surface-variant leading-relaxed">
+                              {suggestion}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>

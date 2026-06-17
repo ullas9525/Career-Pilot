@@ -4,13 +4,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from datetime import timedelta
 
-from app import models, schemas, auth, profile
+from app import models, schemas, auth, profile, interviews
 from app.database import get_db
 from app.config import settings
 
 app = FastAPI(title="Career Pilot API")
 
 app.include_router(profile.router)
+app.include_router(interviews.router)
 
 app.add_middleware(
     CORSMiddleware,

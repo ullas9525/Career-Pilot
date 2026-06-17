@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function InterviewSession() {
   const navigate = useNavigate();
@@ -9,12 +10,19 @@ export default function InterviewSession() {
   const [isRecording, setIsRecording] = useState(false);
   const [recordingText, setRecordingText] = useState('Idle');
   
+  // Chat state
+  const [messages, setMessages] = useState<{role: string, content: string}[]>([]);
+  const [inputText, setInputText] = useState('');
+  const [interviewId, setInterviewId] = useState<number | null>(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+  
   // Timer state
   const [remainingSeconds, setRemainingSeconds] = useState(180);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   // Live session timer
-  const [liveSeconds, setLiveSeconds] = useState(862);
+  const [liveSeconds, setLiveSeconds] = useState(0);
 
   useEffect(() => {
     const liveInterval = setInterval(() => {
@@ -22,6 +30,71 @@ export default function InterviewSession() {
     }, 1000);
     return () => clearInterval(liveInterval);
   }, []);
+
+  // Initialize interview
+  useEffect(() => {
+    if (!showModal) {
+      startInterview();
+    }
+  }, [showModal]);
+
+  const startInterview = async () => {
+    const apiKey = localStorage.getItem('groqApiKey');
+    if (!apiKey) {
+      alert('Please add your Groq API Key in Settings first!');
+      navigate('/student/settings');
+      return;
+    }
+    try {
+      setIsTyping(true);
+      const res = await axios.post('http://localhost:8000/api/interviews/start', { role: 'Software Engineer' }, {
+        headers: { 'X-API-Key': apiKey }
+      });
+      setInterviewId(res.data.interview_id);
+      setMessages([{ role: 'assistant', content: res.data.message }]);
+    } catch (error) {
+      console.error(error);
+      alert('Failed to start interview.');
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (!inputText.trim() || !interviewId) return;
+    const apiKey = localStorage.getItem('groqApiKey');
+    
+    const userMsg = inputText.trim();
+    setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
+    setInputText('');
+    setIsTyping(true);
+
+    try {
+      const res = await axios.post('http://localhost:8000/api/interviews/chat', { 
+        interview_id: interviewId, 
+        message: userMsg 
+      }, {
+        headers: { 'X-API-Key': apiKey }
+      });
+
+      setMessages(prev => [...prev, { role: 'assistant', content: res.data.message }]);
+
+      if (res.data.status === 'completed') {
+        alert('Interview completed! Score: ' + res.data.score);
+        localStorage.setItem('lastInterviewScore', JSON.stringify(res.data));
+        navigate('/student/result');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to send message.');
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping]);
 
   useEffect(() => {
     let timerInterval: NodeJS.Timeout;
@@ -130,24 +203,48 @@ export default function InterviewSession() {
       </header>
 
       <main className="flex flex-1 gap-4 overflow-hidden">
-        {/* Left Sidebar: Notepad */}
-        <aside className="w-72 flex flex-col gap-4 hidden lg:flex">
+        {/* Left Sidebar: Chat Transcript */}
+        <aside className="w-80 flex flex-col gap-4 hidden lg:flex">
           <div className="flex-1 glass-panel rounded-2xl p-5 flex flex-col gap-4 overflow-hidden">
             <div className="flex items-center justify-between">
               <h3 className="text-on-surface font-semibold text-sm flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary text-[20px]">edit_note</span> Shared Notepad
+                <span className="material-symbols-outlined text-primary text-[20px]">forum</span> Live Transcript
               </h3>
-              <span className="text-[10px] uppercase tracking-wider font-bold text-outline">Autosaving</span>
             </div>
-            <div className="flex-1 overflow-y-auto text-sm text-on-surface-variant leading-relaxed">
-              <div className="space-y-4">
-                <div className="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30">
-                  <p className="font-bold text-primary mb-1 text-[11px] uppercase">Situation (S)</p>
-                  <p className="italic">Type your notes here during the interview...</p>
+            <div className="flex-1 overflow-y-auto text-sm text-on-surface-variant flex flex-col gap-3 pr-2">
+              {messages.map((msg, idx) => (
+                <div key={idx} className={`p-3 rounded-lg border ${msg.role === 'assistant' ? 'bg-surface-container-low border-outline-variant/30 text-left' : 'bg-primary/10 border-primary/20 text-right self-end ml-4'}`}>
+                  <p className={`font-bold mb-1 text-[11px] uppercase ${msg.role === 'assistant' ? 'text-primary' : 'text-tertiary'}`}>
+                    {msg.role === 'assistant' ? 'AI Interviewer' : 'You'}
+                  </p>
+                  <p className="whitespace-pre-wrap">{msg.content}</p>
                 </div>
-              </div>
+              ))}
+              {isTyping && (
+                <div className="p-3 bg-surface-container-low rounded-lg border border-outline-variant/30 text-left mr-8">
+                  <p className="font-bold text-primary mb-1 text-[11px] uppercase">AI Interviewer</p>
+                  <p className="italic flex gap-1">
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></span>
+                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></span>
+                  </p>
+                </div>
+              )}
+              <div ref={chatEndRef} />
             </div>
-            <button className="w-full py-2 bg-surface-container text-on-surface-variant text-xs font-semibold rounded-lg border border-outline-variant/20 hover:bg-surface-container-high transition-colors">Copy to Clipboard</button>
+            <div className="mt-auto relative">
+              <input 
+                type="text" 
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && sendMessage()}
+                placeholder="Type your answer..." 
+                className="w-full bg-surface-container rounded-xl pl-4 pr-12 py-3 text-sm focus:ring-2 focus:ring-primary/20 border border-outline-variant/30 transition-all outline-none"
+              />
+              <button onClick={sendMessage} className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 bg-primary text-white rounded-lg hover:bg-primary/90">
+                <span className="material-symbols-outlined text-[18px]">send</span>
+              </button>
+            </div>
           </div>
         </aside>
 
