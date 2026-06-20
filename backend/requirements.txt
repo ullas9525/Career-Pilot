@@ -9,3 +9,6 @@ pydantic-settings
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
+openai
+email-validator
+PyPDF2

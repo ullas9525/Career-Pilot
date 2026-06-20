@@ -1,12 +1,13 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 import io
 import json
-from groq import AsyncGroq
+from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from app.config import settings
+from app.nvidia_client import chat_completion, NEMOTRON_3_ULTRA
 
 router = APIRouter(prefix="/api/profile", tags=["Profile"])
 
 RUBRICS_PATH = "e:/Muddu Items/Career Pilot/docs/Resume_Rubrics.md"
+
 
 def get_resume_rubric():
     try:
@@ -15,21 +16,18 @@ def get_resume_rubric():
     except Exception:
         return "Rubric not found."
 
+
 @router.post("/resume-upload")
 async def upload_resume(
-    file: UploadFile = File(...), 
-    role: str = Form("Software Engineer")
+    file: UploadFile = File(...),
+    role: str = Form("Software Engineer"),
 ):
-    if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "your_admin_key_here":
-        raise HTTPException(status_code=500, detail="GROQ_API_KEY is not configured on the backend.")
+    if not settings.NVIDIA_API_KEY:
+        raise HTTPException(status_code=500, detail="NVIDIA_API_KEY is not configured on the backend.")
 
     try:
-        # Read the file contents
         contents = await file.read()
-        
-        # In a production app, we would parse the PDF using PyPDF2
-        # For now, if it's text or we assume it's a raw dump, we decode it.
-        # Let's handle simple parsing for demo purposes
+
         try:
             import PyPDF2
             pdf_reader = PyPDF2.PdfReader(io.BytesIO(contents))
@@ -37,11 +35,7 @@ async def upload_resume(
             for page in pdf_reader.pages:
                 resume_text += page.extract_text() + "\n"
         except Exception:
-            # Fallback for plain text
-            resume_text = contents.decode('utf-8', errors='ignore')
-
-        # Use the backend ENV API key for Groq
-        client = AsyncGroq(api_key=settings.GROQ_API_KEY)
+            resume_text = contents.decode("utf-8", errors="ignore")
 
         rubric_text = get_resume_rubric()
 
@@ -49,10 +43,15 @@ async def upload_resume(
         You are an expert ATS (Applicant Tracking System) and senior technical recruiter.
         Analyze the following resume specifically for the target role of: {role}.
         Calculate a score strictly out of 100 based on the following mathematically derived rubric.
-        
-        You MUST calculate the score by evaluating each bucket exactly as described and adding up the points. 
+
+        You MUST calculate the score by evaluating each bucket exactly as described and adding up the points.
         Do NOT eyeball the final score. If there is no quantified impact, the max score for that bucket is 5, severely capping the final score.
-        
+
+        RESPONSE REQUIREMENTS:
+        - Keep explanations SHORT and in BULLET POINTS so students can scan fast.
+        - For every issue found, provide: what the issue is → what to change it to → why it matters.
+        - Be specific and actionable. Show the exact before/after fix.
+
         RESUME SCORING RUBRICS:
         {rubric_text}
 
@@ -66,28 +65,29 @@ async def upload_resume(
                 {{"category": "Formatting", "score": <int>, "max": 15, "reason": "<brief reason>"}},
                 {{"category": "Summary", "score": <int>, "max": 10, "reason": "<brief reason>"}}
             ],
-            "target_role_match": "<Detailed analysis of how well the resume fits the target role of {role}. Provide deep, infinite feedback.>",
-            "score_explanation": "<Detailed breakdown of exactly why this score was given instead of a higher score, referencing the rubric buckets. Provide deep, infinite feedback.>",
-            "improvement_suggestions": [
-                "<Specific, actionable improvement suggestion 1>",
-                "<Specific, actionable improvement suggestion 2>",
-                "<Specific, actionable improvement suggestion 3>"
+            "target_role_match": "<Short bullet points analyzing how well the resume fits the target role of {role}. Keep brief and scannable.>",
+            "why_score_is_low": "<bullet points explaining exactly why this score wasn't higher, referencing each rubric bucket. Keep short and scannable.>",
+            "fixes": [
+                {{
+                    "issue": "<Exact issue found in the resume>",
+                    "fix": "<Exactly what to change it to — show the rewritten bullet/text>",
+                    "why": "<Short reason why this fix improves the score, which bucket it impacts>"
+                }}
             ]
         }}
-        
+
         Resume text:
         {resume_text[:4000]}
         """
 
-        completion = await client.chat.completions.create(
+        resp_text = await chat_completion(
             messages=[{"role": "user", "content": prompt}],
-            model="llama-3.3-70b-versatile",
+            model=NEMOTRON_3_ULTRA,
             temperature=0.2,
-            response_format={"type": "json_object"}
+            response_format={"type": "json_object"},
         )
 
-        response_text = completion.choices[0].message.content
-        return json.loads(response_text)
+        return json.loads(resp_text)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -320,8 +320,14 @@ export default function StudentProfile() {
                         </div>
                       )}
 
-                      <div className="prose prose-sm md:prose-base max-w-none text-on-surface-variant leading-loose whitespace-pre-wrap">
-                        {analysisResult.score_explanation}
+                      <div className="bg-error/5 border border-error/20 rounded-xl p-4">
+                        <h4 className="font-label-md text-label-md text-error font-bold flex items-center gap-2 mb-3">
+                          <span className="material-symbols-outlined text-[18px]">info</span>
+                          Why Score Isn't Higher
+                        </h4>
+                        <div className="text-sm text-on-surface-variant leading-relaxed whitespace-pre-wrap">
+                          {analysisResult.why_score_is_low}
+                        </div>
                       </div>
                     </div>
 
@@ -330,17 +336,35 @@ export default function StudentProfile() {
                       <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full pointer-events-none"></div>
                       <h3 className="font-headline-md text-xl text-primary font-bold mb-6 flex items-center gap-2">
                         <span className="material-symbols-outlined">trending_up</span>
-                        Your Action Plan
+                        Fixes & Improvements
                       </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {analysisResult.improvement_suggestions?.map((suggestion: string, idx: number) => (
-                          <div key={idx} className="flex gap-4 items-start bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 hover:border-primary/30 transition-colors group">
-                            <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors">
-                              <span className="font-bold text-sm">{idx + 1}</span>
+                      <div className="flex flex-col gap-4">
+                        {analysisResult.fixes?.map((fix: any, idx: number) => (
+                          <div key={idx} className="bg-surface-container-low p-5 rounded-xl border border-outline-variant/20 hover:border-primary/30 transition-colors">
+                            <div className="flex items-start gap-3 mb-3">
+                              <div className="w-7 h-7 rounded-full bg-error/10 text-error flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="material-symbols-outlined text-[16px]">close</span>
+                              </div>
+                              <div className="flex-1">
+                                <p className="font-label-md font-semibold text-on-surface mb-1 text-sm">Issue</p>
+                                <p className="font-body-md text-on-surface-variant text-sm leading-relaxed">{fix.issue}</p>
+                              </div>
                             </div>
-                            <p className="font-body-md text-on-surface-variant leading-relaxed">
-                              {suggestion}
-                            </p>
+                            <div className="flex items-start gap-3 mb-3 ml-10">
+                              <div className="w-7 h-7 rounded-full bg-tertiary/10 text-tertiary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="material-symbols-outlined text-[16px]">check</span>
+                              </div>
+                              <div className="flex-1">
+                                <p className="font-label-md font-semibold text-on-surface mb-1 text-sm">Fix</p>
+                                <p className="font-body-md text-on-surface-variant text-sm leading-relaxed">{fix.fix}</p>
+                              </div>
+                            </div>
+                            <div className="ml-10 bg-primary/5 rounded-lg p-3 border border-primary/10">
+                              <p className="text-xs text-on-surface-variant flex items-start gap-1">
+                                <span className="material-symbols-outlined text-[14px] text-primary mt-0.5">lightbulb</span>
+                                <span>{fix.why}</span>
+                              </p>
+                            </div>
                           </div>
                         ))}
                       </div>

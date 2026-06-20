@@ -5,10 +5,10 @@ export default function Settings() {
   const [difficulty, setDifficulty] = useState('Medium');
   const [role, setRole] = useState('Product Manager');
   const [isEditingRole, setIsEditingRole] = useState(false);
-  const [groqApiKey, setGroqApiKey] = useState(localStorage.getItem('groqApiKey') || '');
+  const [nvidiaApiKey, setNvidiaApiKey] = useState(localStorage.getItem('nvidiaApiKey') || '');
 
   const handleSave = () => {
-    localStorage.setItem('groqApiKey', groqApiKey);
+    localStorage.setItem('nvidiaApiKey', nvidiaApiKey);
     // Optional: show a toast or alert
     alert('Settings saved successfully!');
   };
@@ -144,16 +144,16 @@ export default function Settings() {
           </div>
           <div className="space-y-6">
             <div>
-              <p className="font-label-md text-label-md mb-2">Groq API Key</p>
-              <p className="text-label-sm text-on-surface-variant mb-4">Required for AI mock interviews. Your key is stored securely in your browser and never sent anywhere except to the backend to proxy to Groq.</p>
+              <p className="font-label-md text-label-md mb-2">NVIDIA API Key</p>
+              <p className="text-label-sm text-on-surface-variant mb-4">Required for AI mock interviews. Your key is stored securely in your browser and sent to the backend to proxy requests to NVIDIA Nemotron models.</p>
               <div className="relative">
                 <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">key</span>
                 <input 
                   type="password" 
-                  value={groqApiKey}
-                  onChange={(e) => setGroqApiKey(e.target.value)}
+                  value={nvidiaApiKey}
+                  onChange={(e) => setNvidiaApiKey(e.target.value)}
                   className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface-container/50 border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md" 
-                  placeholder="gsk_..."
+                  placeholder="nvapi-..."
                 />
               </div>
             </div>

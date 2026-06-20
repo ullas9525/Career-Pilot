@@ -39,9 +39,9 @@ export default function InterviewSession() {
   }, [showModal]);
 
   const startInterview = async () => {
-    const apiKey = localStorage.getItem('groqApiKey');
+    const apiKey = localStorage.getItem('nvidiaApiKey');
     if (!apiKey) {
-      alert('Please add your Groq API Key in Settings first!');
+      alert('Please add your NVIDIA API Key in Settings first!');
       navigate('/student/settings');
       return;
     }
@@ -62,7 +62,7 @@ export default function InterviewSession() {
 
   const sendMessage = async () => {
     if (!inputText.trim() || !interviewId) return;
-    const apiKey = localStorage.getItem('groqApiKey');
+    const apiKey = localStorage.getItem('nvidiaApiKey');
     
     const userMsg = inputText.trim();
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
