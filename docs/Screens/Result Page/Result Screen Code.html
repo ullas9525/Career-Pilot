@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Career Pilot - Interview Performance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-surface": "#303032", "tertiary-container": "#008133",
+                        "on-tertiary-fixed-variant": "#00531e", "on-secondary-fixed": "#002020",
+                        "inverse-primary": "#b4c5ff", "surface-variant": "#e3e2e4",
+                        "primary-fixed": "#dbe1ff", "on-surface-variant": "#424656",
+                        "surface-container": "#efedef", "secondary-fixed-dim": "#50dad9",
+                        "primary-fixed-dim": "#b4c5ff", "on-tertiary-container": "#d4ffd2",
+                        "tertiary": "#006526", "background": "#faf9fb", "primary-container": "#0f62fe",
+                        "secondary-container": "#6ef3f3", "surface-container-high": "#e9e8ea",
+                        "secondary": "#006a6a", "on-surface": "#1b1c1d", "surface-container-highest": "#e3e2e4",
+                        "surface": "#faf9fb", "secondary-fixed": "#72f6f6", "on-tertiary-fixed": "#002108",
+                        "on-primary": "#ffffff", "on-error": "#ffffff", "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174c", "on-error-container": "#93000a", "outline": "#737687",
+                        "on-secondary-fixed-variant": "#004f4f", "surface-container-low": "#f5f3f5",
+                        "on-primary-fixed-variant": "#003da9", "surface-tint": "#0052dd",
+                        "tertiary-fixed-dim": "#69de7c", "error": "#ba1a1a", "inverse-on-surface": "#f2f0f2",
+                        "tertiary-fixed": "#85fb96", "outline-variant": "#c3c6d8", "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff", "on-secondary-container": "#006e6e", "surface-dim": "#dbd9dc",
+                        "on-tertiary": "#ffffff", "primary": "#004ccd", "surface-bright": "#faf9fb",
+                        "on-primary-container": "#f3f3ff", "on-background": "#1b1c1d"
+                    },
+                    borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+                    spacing: { gutter: "24px", "margin-desktop": "64px", "container-max": "1280px", "margin-mobile": "20px", unit: "8px" },
+                    fontFamily: { "label-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"] },
+                    fontSize: {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background: radial-gradient(circle at 0% 0%, #f3f3ff 0%, #faf9fb 100%);
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(15, 98, 254, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .radial-progress {
+            transform: rotate(-90deg);
+        }
+        .ai-pulse {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { border-color: rgba(0, 106, 106, 0.2); box-shadow: 0 0 0px rgba(0, 106, 106, 0); }
+            50% { border-color: rgba(0, 106, 106, 0.6); box-shadow: 0 0 15px rgba(0, 106, 106, 0.1); }
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-primary-fixed-dim">
+<!-- TopNavBar (same as original) -->
+<header class="w-full top-0 sticky z-50 bg-white/60 dark:bg-black/60 backdrop-blur-[20px] border-b border-white/40 dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Career Pilot</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Practice</a>
+<a class="text-primary dark:text-primary-fixed font-semibold border-b-2 border-primary font-body-md" href="#">Feedback</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Mentorship</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant active:scale-95 transition-transform">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant active:scale-95 transition-transform">dark_mode</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User Profile Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcWmZHiSjG9Xy9AN-TK3F9-1opYvpF1uQFBy1AGOSN7sz-nwI9y4iaCXTyhsWXAGBmRnrRZ0TVSjV4quEWBVF-H5piB30t9GPfMd4GNkQGSxmY7b3IjLLjOuSjRvVsFBHLgMFoxgKFSFDFTG5199cYE5Jpd2UqkKAT1ZNjS3XpOceQrpov5yFebPag8q_IpW-QqwfUTMtnUHmOFFduxavP3F0e6JhEqj225yd6syBPiq7IbuaGvGLmlAIgtscCki-U4TB7s7i3k1U"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto relative">
+<!-- SideNavBar (same as original) -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-72px)] w-64 sticky top-[72px] p-4 gap-2 bg-surface-container-low/80 backdrop-blur-[30px] border-r border-white/40">
+<div class="mb-6 px-2">
+<div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-2">Navigation</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-md">Overview</span></a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container/20 text-primary rounded-xl font-semibold" href="#"><span class="material-symbols-outlined">history</span><span class="font-label-md">History</span></a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">ads_click</span><span class="font-label-md">Interview Process</span></a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">psychology</span><span class="font-label-md">Mock Interview</span></a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">assignment_turned_in</span><span class="font-label-md">Placement Dashboard</span></a>
+</div>
+</div>
+<button class="mt-auto bg-primary text-white py-3 px-4 rounded-xl font-semibold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]">bolt</span> Start Mock Session
+</button>
+<div class="mt-4 pt-4 border-t border-outline-variant/30 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">settings</span><span class="font-label-md">Settings</span></a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all" href="#"><span class="material-symbols-outlined">help</span><span class="font-label-md">Support</span></a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 px-4 md:px-margin-desktop py-8">
+<!-- Header Section (unchanged) -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-tight">Technical Mock: Frontend Engineering</h1>
+<p class="font-body-lg text-on-surface-variant mt-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+                        Completed on May 24, 2024 • 45 Minutes Session
+                    </p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-full border border-primary text-primary font-semibold hover:bg-primary/5 transition-all active:scale-95">View Leaderboard</button>
+<button class="px-6 py-2.5 rounded-full bg-primary text-white font-semibold shadow-md active:scale-95 transition-all">Practice Again</button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Overall Performance Card (score set to 58) -->
+<div class="md:col-span-4 glass-card p-8 rounded-[32px] flex flex-col items-center justify-center text-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6">Overall Performance</h3>
+<div class="relative w-48 h-48 mb-6">
+<svg class="w-full h-full radial-progress" viewBox="0 0 100 100">
+<circle class="text-surface-variant" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-error" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="105.5" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-error">58</span>
+<span class="font-label-md text-outline">OUT OF 100</span>
+</div>
+</div>
+<p class="font-body-md text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">trending_down</span>
+                        Needs improvement – see plan below
+                    </p>
+</div>
+
+<!-- Progress Over Last 4 Mocks (thin version, unchanged) -->
+<div class="md:col-span-8 glass-card p-6 rounded-[32px]">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">📈 Progress Over Last 4 Mocks</h3>
+<p class="text-sm text-on-surface-variant mb-5">Compare your current score with previous attempts – track improvement.</p>
+<div class="flex flex-col gap-3">
+    <div class="flex items-center justify-between text-sm">
+        <span class="font-medium w-28">Mock #4 (Today)</span>
+        <span class="font-bold text-error">58</span>
+        <span class="text-xs text-error flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_downward</span> -14</span>
+        <div class="w-32 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-error rounded-full" style="width: 58%"></div>
+        </div>
+    </div>
+    <div class="flex items-center justify-between text-sm">
+        <span class="font-medium w-28">Mock #3</span>
+        <span class="font-bold text-primary">72</span>
+        <span class="text-xs text-tertiary flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">arrow_upward</span> +2</span>
+        <div class="w-32 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full" style="width: 72%"></div>
+        </div>
+    </div>
+    <div class="flex items-center justify-between text-sm">
+        <span class="font-medium w-28">Mock #2</span>
+        <span class="font-bold text-primary">70</span>
+        <span class="text-xs text-outline">-</span>
+        <div class="w-32 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full" style="width: 70%"></div>
+        </div>
+    </div>
+    <div class="flex items-center justify-between text-sm">
+        <span class="font-medium w-28">Mock #1</span>
+        <span class="font-bold text-primary">68</span>
+        <span class="text-xs text-outline">Baseline</span>
+        <div class="w-32 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-primary rounded-full" style="width: 68%"></div>
+        </div>
+    </div>
+</div>
+<div class="mt-5 pt-3 border-t border-outline-variant/30">
+    <div class="flex justify-around items-end h-20 gap-1">
+        <div class="flex flex-col items-center w-12"><div class="w-6 bg-primary/20 rounded-t-md transition-all" style="height: 45px"></div><span class="text-[10px] mt-1">#1</span></div>
+        <div class="flex flex-col items-center w-12"><div class="w-6 bg-primary/40 rounded-t-md transition-all" style="height: 47px"></div><span class="text-[10px] mt-1">#2</span></div>
+        <div class="flex flex-col items-center w-12"><div class="w-6 bg-primary/60 rounded-t-md transition-all" style="height: 48px"></div><span class="text-[10px] mt-1">#3</span></div>
+        <div class="flex flex-col items-center w-12"><div class="w-6 bg-error rounded-t-md shadow-sm" style="height: 39px"></div><span class="text-[10px] mt-1 font-semibold">Today</span></div>
+    </div>
+    <p class="text-center text-xs text-outline mt-3">⚠️ Your score dropped significantly. Follow the improvement plan below to get back on track.</p>
+</div>
+</div>
+
+<!-- NEW: Clear Score Breakdown Card (visual bars with weights) -->
+<div class="md:col-span-12 glass-card p-6 rounded-[32px]">
+  <h3 class="font-headline-md text-headline-md text-on-surface mb-4">🔢 Score Breakdown</h3>
+  <div class="space-y-4">
+    <div>
+      <div class="flex justify-between text-sm mb-1"><span>Technical Depth <span class="text-xs text-outline">(40% weight)</span></span><span class="font-semibold text-error">52/100</span></div>
+      <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error rounded-full" style="width: 52%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1"><span>Communication <span class="text-xs text-outline">(20% weight)</span></span><span class="font-semibold text-error">48/100</span></div>
+      <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error rounded-full" style="width: 48%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1"><span>Problem Solving <span class="text-xs text-outline">(30% weight)</span></span><span class="font-semibold text-error">62/100</span></div>
+      <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error rounded-full" style="width: 62%"></div></div>
+    </div>
+    <div>
+      <div class="flex justify-between text-sm mb-1"><span>Culture Fit <span class="text-xs text-outline">(10% weight)</span></span><span class="font-semibold text-error">65/100</span></div>
+      <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error rounded-full" style="width: 65%"></div></div>
+    </div>
+  </div>
+  <div class="mt-4 pt-2 border-t border-outline-variant/20 text-center text-sm text-on-surface-variant">⚡ Weighted total: <strong class="text-error">58/100</strong></div>
+  <p class="text-xs text-outline mt-2 text-center">👉 Your weakest dimension is <strong>Communication (48/100)</strong>. Focus on the improvement plan below.</p>
+</div>
+
+<!-- Role-Specific Rubric Breakdown (dynamically generated) -->
+<div id="rubric-container" class="md:col-span-12 glass-card p-8 rounded-[32px]">
+    <!-- Content will be filled by JavaScript -->
+    <div class="flex justify-center items-center py-12">
+        <span class="material-symbols-outlined animate-spin">progress_activity</span>
+        <span class="ml-2">Loading rubric...</span>
+    </div>
+</div>
+
+<!-- Scoring Explanation Card (unchanged) -->
+<div class="md:col-span-12 glass-card p-8 rounded-[32px]">
+  <div class="flex items-center gap-3 mb-2">
+    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+      <span class="material-symbols-outlined text-primary">analytics</span>
+    </div>
+    <div>
+      <h3 class="font-headline-md text-headline-md text-on-surface">🔍 Why You Scored 52 — Not 60</h3>
+      <p class="text-sm text-on-surface-variant">Dimension: <strong>Technical Depth (40% weight)</strong> · Your score: <strong class="text-error">52/100</strong></p>
+    </div>
+  </div>
+  <div class="mt-4 p-4 bg-error/5 border border-error/20 rounded-xl text-sm text-on-surface leading-relaxed mb-6">
+    <strong class="text-error">Why 52 and not 60:</strong> To reach 60, you needed to name at least one concrete optimisation technique (e.g., <em>React.memo</em>, <em>useCallback</em>, or <em>virtualisation</em>) and explain <em>why</em> it helps. You mentioned <em>"React.memo?"</em> as a guess without explaining what it does or when to use it. The AI also expected you to discuss trade-offs (memory vs render cost). Missing both of these items cost you the 8 points between 52 and 60.
+  </div>
+  <!-- Side-by-side comparison table -->
+  <p class="font-label-md font-semibold text-on-surface mb-3">Score Band Comparison — Technical Depth</p>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm border-collapse">
+      <thead>
+        <tr class="bg-surface-container text-on-surface-variant">
+          <th class="text-left px-4 py-3 rounded-tl-xl font-semibold w-24">Band</th>
+          <th class="text-left px-4 py-3 font-semibold">What a <span class="text-outline">60</span> answer looks like</th>
+          <th class="text-left px-4 py-3 font-semibold">What a <span class="text-primary">70</span> answer looks like</th>
+          <th class="text-left px-4 py-3 rounded-tr-xl font-semibold">What an <span class="text-tertiary">80</span> answer looks like</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t border-outline-variant/20"><td class="px-4 py-3 font-bold text-outline align-top">Concept Named</td><td class="px-4 py-3 text-on-surface-variant align-top">Names one technique (<em>React.memo</em>) without full explanation.</td><td class="px-4 py-3 text-on-surface-variant align-top">Names and explains 2 techniques (<em>React.memo + useCallback</em>) with when to apply each.</td><td class="px-4 py-3 text-on-surface-variant align-top">Names 3+ techniques including virtualisation (<em>react-window</em>), explains the rendering pipeline.</td></tr>
+        <tr class="border-t border-outline-variant/20 bg-surface-container/30"><td class="px-4 py-3 font-bold text-outline align-top">Trade-offs</td><td class="px-4 py-3 text-on-surface-variant align-top">No trade-off discussed.</td><td class="px-4 py-3 text-on-surface-variant align-top">Briefly mentions memory overhead of memoisation.</td><td class="px-4 py-3 text-on-surface-variant align-top">Compares solutions: <em>"memo is cheaper for pure components but adds overhead if props change often."</em></td></tr>
+        <tr class="border-t border-outline-variant/20"><td class="px-4 py-3 font-bold text-outline align-top">Real Example</td><td class="px-4 py-3 text-on-surface-variant align-top">No real example given.</td><td class="px-4 py-3 text-on-surface-variant align-top">References a past project: <em>"In our dashboard with 500 rows…"</em></td><td class="px-4 py-3 text-on-surface-variant align-top">Gives measurable outcome: <em>"Reduced re-renders by 40%, TTI dropped from 3s to 1.2s."</em></td></tr>
+        <tr class="border-t border-outline-variant/20 bg-surface-container/30"><td class="px-4 py-3 font-bold text-outline align-top">Answer Length</td><td class="px-4 py-3 text-on-surface-variant align-top">~30 seconds (too short).</td><td class="px-4 py-3 text-on-surface-variant align-top">~90 seconds, structured.</td><td class="px-4 py-3 text-on-surface-variant align-top">~2–3 minutes with natural flow and follow-up handling.</td></tr>
+        <tr class="border-t border-outline-variant/20"><td class="px-4 py-3 font-bold align-top"><span class="text-error">Your Score</span></td><td class="px-4 py-3 font-bold text-outline align-top">60</td><td class="px-4 py-3 font-bold text-primary align-top">70</td><td class="px-4 py-3 font-bold text-tertiary align-top">80</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-4 p-3 bg-primary/5 rounded-xl text-sm text-on-surface-variant">
+    💡 <strong class="text-on-surface">Your gap to 60:</strong> Add one concrete technique name + one trade-off sentence. That's it. See Q3 feedback below for the exact fix.
+  </div>
+</div>
+
+<!-- Improvement Plan Card (unchanged) -->
+<div class="md:col-span-12 glass-card p-8 rounded-[32px] border-error/30 border-2">
+<div class="flex items-center gap-3 mb-6">
+    <div class="w-12 h-12 rounded-full bg-error/20 flex items-center justify-center">
+        <span class="material-symbols-outlined text-error text-2xl">calendar_month</span>
+    </div>
+    <div>
+        <h3 class="font-headline-md text-headline-md text-on-surface">📅 14-Day Improvement Plan</h3>
+        <p class="text-sm text-on-surface-variant">Personalized plan to go from 58 → 75+</p>
+    </div>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-white/40 rounded-xl p-5">
+        <h4 class="font-label-md font-bold text-primary mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-primary">weekend</span> Week 1: Foundation</h4>
+        <div class="space-y-3 text-sm">
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">1</div><div><span class="font-semibold">Day 1-2:</span> Communication workshop – STAR method deep dive (2 hrs)</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">2</div><div><span class="font-semibold">Day 3:</span> Practice interview #1 – focus only on communication, ignore technical depth</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">3</div><div><span class="font-semibold">Day 4-5:</span> Review feedback, practice transitions, record yourself answering 5 common questions</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">4</div><div><span class="font-semibold">Day 6:</span> Practice interview #2 – apply STAR lessons, aim for 65+</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-bold">5</div><div><span class="font-semibold">Day 7:</span> Rest & reflect – watch recorded sessions, note filler words</div></div>
+        </div>
+    </div>
+    <div class="bg-white/40 rounded-xl p-5">
+        <h4 class="font-label-md font-bold text-secondary mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-secondary">trending_up</span> Week 2: Deepen & Apply</h4>
+        <div class="space-y-3 text-sm">
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold">6</div><div><span class="font-semibold">Day 8-9:</span> Technical depth refresh – review React, caching, system design basics (3 hrs)</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold">7</div><div><span class="font-semibold">Day 10:</span> Practice interview #3 – full mock, time yourself, reduce filler words</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold">8</div><div><span class="font-semibold">Day 11-12:</span> Targeted problem‑solving drills (LeetCode easy/medium, system design walkthroughs)</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold">9</div><div><span class="font-semibold">Day 13:</span> Practice interview #4 – simulate real pressure (no pauses, strict timer)</div></div>
+            <div class="flex items-start gap-2"><div class="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold">10</div><div><span class="font-semibold">Day 14:</span> Final full assessment – target 75+</div></div>
+        </div>
+    </div>
+</div>
+<div class="mt-6 p-4 bg-primary/5 rounded-xl flex flex-wrap justify-between items-center gap-4">
+    <div><span class="text-sm font-semibold">Expected outcome:</span> <span class="text-sm text-on-surface-variant">70% chance of reaching 75+ if you follow the plan (2-3 hrs/day)</span></div>
+    <button class="bg-primary text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition">Add to Calendar</button>
+</div>
+</div>
+
+<!-- Spider Chart (unchanged) -->
+<div class="md:col-span-6 glass-card p-8 rounded-[32px] flex flex-col items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface self-start mb-6">Competency Balance</h3>
+<div class="relative w-full aspect-square max-w-[320px] flex items-center justify-center">
+<svg class="w-full h-full" viewBox="0 0 100 100">
+<polygon fill="none" points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="#e3e2e4" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="#e3e2e4" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,35 65,42.5 65,57.5 50,65 35,57.5 35,42.5" stroke="#e3e2e4" stroke-width="0.5"></polygon>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="50" y1="50" y2="5"></line>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="95" y1="50" y2="27.5"></line>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="95" y1="50" y2="72.5"></line>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="50" y1="50" y2="95"></line>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="5" y1="50" y2="72.5"></line>
+<line stroke="#e3e2e4" stroke-width="0.5" x1="50" x2="5" y1="50" y2="27.5"></line>
+<polygon fill="rgba(186, 26, 26, 0.15)" points="50,35 88,42 80,68 50,85 18,62 12,38" stroke="#ba1a1a" stroke-width="2"></polygon>
+</svg>
+<div class="absolute top-0 text-[10px] font-bold text-outline">DEPTH</div>
+<div class="absolute bottom-0 text-[10px] font-bold text-outline">SPEED</div>
+<div class="absolute left-0 top-1/4 -translate-x-full text-[10px] font-bold text-outline">SOFT SKILLS</div>
+<div class="absolute right-0 top-1/4 translate-x-full text-[10px] font-bold text-outline">LOGIC</div>
+</div>
+</div>
+
+<!-- AI Insights Panel (unchanged) -->
+<div class="md:col-span-6 glass-card p-8 rounded-[32px] border-error-container ai-pulse border-2">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-error">auto_awesome</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">AI Coach Insights</h3>
+</div>
+<div class="space-y-6">
+<div class="p-4 bg-tertiary-container/10 rounded-2xl border border-tertiary/20">
+<div class="flex items-center gap-2 text-tertiary font-bold mb-1 uppercase text-label-sm">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span> Key Gaps
+</div>
+<p class="font-body-md text-on-surface">"Your technical answers lacked depth. You couldn't explain React's reconciliation algorithm. Communication was rambling – no STAR structure."</p>
+</div>
+<div class="p-4 bg-error-container/10 rounded-2xl border border-error/20">
+<div class="flex items-center gap-2 text-error font-bold mb-1 uppercase text-label-sm">
+<span class="material-symbols-outlined text-[18px]">trending_up</span> Recommended Focus
+</div>
+<p class="font-body-md text-on-surface">"Focus on the 14-day improvement plan above. Start with the communication workshop – it will have the biggest impact."</p>
+</div>
+<button class="w-full py-3 bg-error/10 text-error rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-error/20 transition-all active:scale-95">
+<span class="material-symbols-outlined">calendar_month</span> Schedule a Mentor Session
+</button>
+</div>
+</div>
+
+<!-- Transcript Highlights – Detailed Feedback (already specific) -->
+<div class="md:col-span-12 glass-card p-8 rounded-[32px] mb-8">
+  <h3 class="font-headline-md text-headline-md text-on-surface mb-2">📝 Transcript Feedback</h3>
+  <p class="text-sm text-on-surface-variant mb-6">Exact quotes from your session with specific timing data and actionable fixes per question.</p>
+  <div class="space-y-8">
+    <!-- Q3 -->
+    <div class="border border-error/30 rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 bg-error/5 border-b border-error/20">
+        <p class="text-label-sm font-bold text-outline uppercase">Question 3: Performance Optimization</p>
+        <div class="flex items-center gap-3 text-xs">
+          <span class="flex items-center gap-1 bg-error/10 text-error px-2 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[14px]">timer</span> 28 sec — target: 2–3 min</span>
+          <span class="bg-error/10 text-error px-2 py-1 rounded-full font-semibold">Score: 40/100</span>
+        </div>
+      </div>
+      <div class="px-5 pt-4 pb-2">
+        <p class="text-xs font-semibold text-outline uppercase mb-2">Interviewer asked</p>
+        <div class="bg-surface-container-low p-4 rounded-xl mb-4 italic text-on-surface-variant text-sm">"How would you handle a React application that is experiencing slow rendering on a complex list?"</div>
+        <p class="text-xs font-semibold text-outline uppercase mb-2">Your exact answer</p>
+        <div class="bg-white/60 border border-outline-variant/30 p-4 rounded-xl mb-4 text-sm text-on-surface leading-relaxed">
+          <span class="text-error font-semibold">[0:00–0:05]</span> <span class="bg-error/10 rounded px-1">"I would... um... maybe use something like..."</span> — <em class="text-error text-xs">5 seconds of filler before the answer started.</em><br><br>
+          <span class="text-error font-semibold">[0:05–0:20]</span> <span class="bg-error/10 rounded px-1">"I don't know, React.memo? Actually, I'm not sure."</span> — <em class="text-error text-xs">Named the right tool but immediately walked it back. No explanation given.</em><br><br>
+          <span class="text-outline font-semibold">[0:20–0:28]</span> <em class="text-outline text-xs">Silence — answer ended.</em>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">timer</span> Too short (28 sec vs 2–3 min target)</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">record_voice_over</span> 6 filler words in 28 seconds</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">cancel</span> No trade-off mentioned</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">cancel</span> No real example given</span>
+        </div>
+        <div class="bg-tertiary/5 border border-tertiary/20 rounded-xl p-4 mb-4">
+          <p class="text-xs font-bold text-tertiary uppercase mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">build</span> Actionable Fix</p>
+          <ol class="text-sm text-on-surface space-y-2 list-decimal pl-4">
+            <li>Replace <em>"I don't know"</em> with a confident opener: <strong>"Great question — I'd start by profiling with React DevTools to confirm the bottleneck."</strong></li>
+            <li>Name at least 2 techniques: <strong>React.memo</strong> (prevents unnecessary re-renders) + <strong>react-window</strong> (virtualises long lists). Explain <em>why</em> each helps.</li>
+            <li>Add a trade-off: <em>"React.memo adds memory overhead — only worth it when props are stable."</em></li>
+            <li>Close with a real example or measurement: <em>"On a past project this reduced TTI from 3s to 1.2s."</em></li>
+            <li>Target <strong>2 minutes</strong> — use structure: Diagnose → Technique → Trade-off → Example.</li>
+          </ol>
+        </div>
+        <details class="text-xs text-outline cursor-pointer hover:text-on-surface transition-colors">
+          <summary class="font-semibold">Show model 80/100 answer</summary>
+          <div class="mt-2 bg-tertiary/5 p-3 rounded-xl text-on-surface-variant leading-relaxed">
+            <em>"I'd first use React DevTools Profiler to identify which components are re-rendering unnecessarily. The two most effective fixes are: (1) <strong>React.memo</strong> — wraps pure functional components so they only re-render when props actually change; useful here because list items likely receive stable props. (2) <strong>react-window</strong> — virtualises the list so only visible rows are in the DOM, which is critical when you have thousands of items. The trade-off with memo is extra memory and a shallow comparison cost — only worth it if renders are expensive. In a previous project I applied both and dropped the re-render count by 80%, reducing TTI from 3s to 1.1s."</em>
+          </div>
+        </details>
+      </div>
+    </div>
+    <!-- Q5 -->
+    <div class="border border-outline-variant/40 rounded-2xl overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 bg-surface-container/50 border-b border-outline-variant/30">
+        <p class="text-label-sm font-bold text-outline uppercase">Question 5: Conflict Resolution</p>
+        <div class="flex items-center gap-3 text-xs">
+          <span class="flex items-center gap-1 bg-error/10 text-error px-2 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[14px]">timer</span> 15 sec — target: 2–3 min</span>
+          <span class="bg-error/10 text-error px-2 py-1 rounded-full font-semibold">Score: 38/100</span>
+        </div>
+      </div>
+      <div class="px-5 pt-4 pb-2">
+        <p class="text-xs font-semibold text-outline uppercase mb-2">Interviewer asked</p>
+        <div class="bg-surface-container-low p-4 rounded-xl mb-4 italic text-on-surface-variant text-sm">"Tell me about a time you disagreed with a technical decision made by your lead."</div>
+        <p class="text-xs font-semibold text-outline uppercase mb-2">Your exact answer</p>
+        <div class="bg-white/60 border border-outline-variant/30 p-4 rounded-xl mb-4 text-sm text-on-surface leading-relaxed">
+          <span class="text-error font-semibold">[0:00–0:15]</span> <span class="bg-error/10 rounded px-1">"I disagreed once but just followed their lead. Not much else to say."</span> — <em class="text-error text-xs">No Situation, no Action, no Result. The answer contained zero detail.</em>
+        </div>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">timer</span> Too short (15 sec vs 2–3 min target)</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">cancel</span> No STAR structure used</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">cancel</span> No leadership or initiative shown</span>
+          <span class="flex items-center gap-1 text-xs bg-error/10 text-error px-3 py-1 rounded-full font-semibold"><span class="material-symbols-outlined text-[13px]">cancel</span> No outcome or learning shared</span>
+        </div>
+        <div class="bg-tertiary/5 border border-tertiary/20 rounded-xl p-4 mb-4">
+          <p class="text-xs font-bold text-tertiary uppercase mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">build</span> Actionable Fix</p>
+          <ol class="text-sm text-on-surface space-y-2 list-decimal pl-4">
+            <li><strong>Situation:</strong> Set the context — project name, team size, what the decision was. <em>"During our e-commerce rewrite, my lead proposed using REST for all APIs…"</em></li>
+            <li><strong>Add your view here:</strong> Explain <em>why</em> you disagreed with data. <em>"I felt GraphQL would reduce over-fetching by ~60% based on our payload analysis."</em></li>
+            <li><strong>Action:</strong> Show initiative — you didn't just comply. <em>"I prepared a 10-minute comparison doc and requested a team review."</em></li>
+            <li><strong>Result:</strong> Outcome or learning. <em>"We adopted a hybrid approach; my section shipped 30% faster."</em></li>
+            <li>Don't end with <em>"not much else to say"</em> — interviewers are probing for ownership and communication skill. This is a leadership signal question.</li>
+          </ol>
+        </div>
+        <details class="text-xs text-outline cursor-pointer hover:text-on-surface transition-colors">
+          <summary class="font-semibold">Show model 80/100 answer</summary>
+          <div class="mt-2 bg-tertiary/5 p-3 rounded-xl text-on-surface-variant leading-relaxed">
+            <em>"<strong>Situation:</strong> During a rewrite of our internal dashboard, my tech lead proposed REST for everything. <strong>Task:</strong> I believed GraphQL would significantly reduce payload size for our data-heavy screens. <strong>Action:</strong> Rather than just raising it verbally, I built a small proof-of-concept and presented a side-by-side payload comparison — GraphQL cut request size by 58% on our heaviest screen. I asked for a team discussion rather than a decision from just the lead. <strong>Result:</strong> The team agreed to use GraphQL for read-heavy screens. The feature shipped a week early and we reduced client-side load time by 40%. I also learned to always back disagreements with data."</em>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-8 bg-surface-container-lowest border-t border-outline-variant/30">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-4">
+<div class="font-headline-md text-headline-md font-bold text-primary">Career Pilot</div>
+<div class="flex gap-8 text-on-surface-variant font-label-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Contact Support</a>
+</div>
+<p class="font-label-sm text-on-surface-variant opacity-80">© 2024 Career Pilot AI. All rights reserved.</p>
+</div>
+</footer>
+<script>
+    // Role-specific rubric configurations (unchanged)
+    const roleRubrics = {
+        "Software Engineer": {
+            title: "Software Engineer Rubric",
+            dimensions: [
+                { name: "Technical Depth", weight: 40, score: 52, justification: "❌ Weak: Could not explain React reconciliation in depth. Missed edge cases in caching fallback.", color: "error" },
+                { name: "Communication", weight: 20, score: 48, justification: "❌ Rambled frequently, didn't use STAR structure. Filler words (um, like) were excessive.", color: "error" },
+                { name: "Problem Solving", weight: 30, score: 62, justification: "⚠️ Jumped to solution without clarifying constraints. Missed optimization opportunities.", color: "error" },
+                { name: "Culture Fit", weight: 10, score: 65, justification: "⚠️ Lacked enthusiasm for company mission. Seemed hesitant in collaboration scenarios.", color: "error" }
+            ]
+        },
+        "Product Manager": {
+            title: "Product Manager Rubric",
+            dimensions: [
+                { name: "Communication & Strategy", weight: 50, score: 48, justification: "❌ Unclear articulation of product vision; did not tie features to business goals.", color: "error" },
+                { name: "Analytical Thinking", weight: 20, score: 55, justification: "⚠️ Used data, but didn't explain how it influenced decisions.", color: "error" },
+                { name: "Leadership", weight: 20, score: 62, justification: "⚠️ Showed some initiative but lacked convincing stakeholder management examples.", color: "error" },
+                { name: "Product Sense", weight: 10, score: 70, justification: "⚠️ Understood user needs, but missed edge cases.", color: "error" }
+            ]
+        },
+        "Data Scientist": {
+            title: "Data Scientist Rubric",
+            dimensions: [
+                { name: "Technical/Coding", weight: 45, score: 50, justification: "❌ SQL query was incorrect; Python knowledge was basic.", color: "error" },
+                { name: "Statistical Knowledge", weight: 35, score: 60, justification: "⚠️ Knew basic concepts but couldn't explain p-value or model assumptions.", color: "error" },
+                { name: "Storytelling", weight: 15, score: 55, justification: "⚠️ Results were presented but lacked clear business impact.", color: "error" },
+                { name: "Communication", weight: 5, score: 65, justification: "⚠️ Used jargon without explaining to non-technical audience.", color: "error" }
+            ]
+        },
+        "Frontend Engineer": {
+            title: "Frontend Engineer Rubric",
+            dimensions: [
+                { name: "Technical Depth", weight: 35, score: 52, justification: "❌ Weak on React hooks and state management.", color: "error" },
+                { name: "Problem Solving", weight: 25, score: 60, justification: "⚠️ Approach was logical but missed performance optimizations.", color: "error" },
+                { name: "User-Centric Thinking", weight: 20, score: 65, justification: "⚠️ Mentioned accessibility but didn't detail implementation.", color: "error" },
+                { name: "Communication", weight: 15, score: 48, justification: "❌ Rambled; couldn't explain trade-offs clearly.", color: "error" },
+                { name: "Culture Fit", weight: 5, score: 70, justification: "⚠️ Good attitude but lacked passion for frontend work.", color: "error" }
+            ]
+        },
+        "Backend Engineer": {
+            title: "Backend Engineer Rubric",
+            dimensions: [
+                { name: "Technical Depth", weight: 40, score: 52, justification: "❌ Could not explain database indexing or caching strategies.", color: "error" },
+                { name: "System Design", weight: 30, score: 58, justification: "⚠️ High-level design was ok, but missed scalability considerations.", color: "error" },
+                { name: "Communication", weight: 20, score: 48, justification: "❌ Rambled; didn't follow STAR structure.", color: "error" },
+                { name: "Culture Fit", weight: 10, score: 65, justification: "⚠️ Seemed disinterested in team collaboration.", color: "error" }
+            ]
+        }
+    };
+
+    function getUserRole() {
+        let role = "Software Engineer";
+        const savedSettings = localStorage.getItem('career_pilot_settings');
+        if (savedSettings) {
+            try {
+                const settings = JSON.parse(savedSettings);
+                if (settings.targetRole) role = settings.targetRole;
+            } catch(e) {}
+        } else {
+            const savedRole = localStorage.getItem('user_role');
+            if (savedRole) role = savedRole;
+        }
+        if (role.includes("Product")) role = "Product Manager";
+        if (role.includes("Data Scientist")) role = "Data Scientist";
+        if (role.includes("Frontend")) role = "Frontend Engineer";
+        if (role.includes("Backend")) role = "Backend Engineer";
+        if (role.includes("Full-Stack")) role = "Software Engineer";
+        return role;
+    }
+
+    function renderRubric() {
+        const role = getUserRole();
+        const rubric = roleRubrics[role] || roleRubrics["Software Engineer"];
+        const container = document.getElementById('rubric-container');
+        if (!container) return;
+        
+        let dimensionsHtml = '';
+        rubric.dimensions.forEach(d => {
+            dimensionsHtml += `
+                <div class="p-4 bg-white/40 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <div><span class="font-label-md font-bold text-on-surface">${d.name}</span><span class="text-xs text-outline ml-2">(${d.weight}% weight)</span></div>
+                        <span class="font-label-md font-bold text-${d.color}">${d.score}/100</span>
+                    </div>
+                    <div class="w-full h-2 bg-surface-variant rounded-full mb-2"><div class="h-full bg-${d.color} rounded-full" style="width: ${d.score}%"></div></div>
+                    <p class="text-sm text-on-surface-variant italic">${d.justification}</p>
+                </div>
+            `;
+        });
+        let total = 0;
+        rubric.dimensions.forEach(d => { total += (d.score * d.weight) / 100; });
+        const totalRounded = Math.round(total);
+        
+        container.innerHTML = `
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-headline-md text-headline-md text-on-surface">📊 ${rubric.title}</h3>
+                <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">Role: ${role}</span>
+            </div>
+            <div class="space-y-5">
+                ${dimensionsHtml}
+            </div>
+            <div class="mt-4 p-3 bg-error/10 rounded-lg text-center text-sm text-on-surface-variant">
+                ⚠️ Weighted total: ${rubric.dimensions.map(d => `(${d.score}×${d.weight/100})`).join(' + ')} = ${totalRounded} → <strong class="text-error">${totalRounded}/100</strong>
+            </div>
+        `;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        renderRubric();
+    });
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'career_pilot_settings' || e.key === 'user_role') {
+            renderRubric();
+        }
+    });
+</script>
+</body>
+</html>

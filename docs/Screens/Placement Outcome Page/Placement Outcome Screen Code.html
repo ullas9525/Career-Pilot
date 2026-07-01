@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Placement Outcomes - Career Pilot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-tertiary-fixed": "#002108", "tertiary": "#006526", "on-primary-fixed-variant": "#003da9",
+                "on-tertiary": "#ffffff", "error-container": "#ffdad6", "secondary-container": "#6ef3f3",
+                "on-background": "#1b1c1d", "error": "#ba1a1a", "surface-container-highest": "#e3e2e4",
+                "on-secondary-fixed-variant": "#004f4f", "tertiary-fixed-dim": "#69de7c", "surface-container-lowest": "#ffffff",
+                "on-primary-container": "#f3f3ff", "surface-tint": "#0052dd", "surface-container-low": "#f5f3f5",
+                "on-primary": "#ffffff", "inverse-primary": "#b4c5ff", "inverse-on-surface": "#f2f0f2",
+                "surface-bright": "#faf9fb", "secondary-fixed-dim": "#50dad9", "surface": "#faf9fb",
+                "on-tertiary-container": "#d4ffd2", "secondary-fixed": "#72f6f6", "surface-container": "#efedef",
+                "on-secondary": "#ffffff", "outline-variant": "#c3c6d8", "outline": "#737687",
+                "on-secondary-container": "#006e6e", "surface-variant": "#e3e2e4", "on-surface-variant": "#424656",
+                "on-error-container": "#93000a", "secondary": "#006a6a", "on-error": "#ffffff",
+                "tertiary-container": "#008133", "surface-container-high": "#e9e8ea", "primary-container": "#0f62fe",
+                "on-tertiary-fixed-variant": "#00531e", "on-secondary-fixed": "#002020", "primary-fixed": "#dbe1ff",
+                "on-primary-fixed": "#00174c", "on-surface": "#1b1c1d", "background": "#faf9fb",
+                "inverse-surface": "#303032", "surface-dim": "#dbd9dc", "primary": "#004ccd",
+                "tertiary-fixed": "#85fb96", "primary-fixed-dim": "#b4c5ff"
+              },
+              borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+              spacing: { "margin-desktop": "64px", "gutter": "24px", "margin-mobile": "20px", "unit": "8px", "container-max": "1280px" },
+              fontFamily: { "body-md": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"] },
+              fontSize: {
+                "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
+                "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "500" }],
+                "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-image: radial-gradient(circle at top right, #f3f3ff 0%, #faf9fb 50%, #e3e2e4 100%);
+            background-attachment: fixed;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(0, 76, 205, 0.05);
+        }
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(195, 198, 216, 0.5);
+            transition: all 0.2s ease;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: #004ccd;
+            box-shadow: 0 0 0 4px rgba(15, 98, 254, 0.1);
+        }
+        .drag-active {
+            border-color: #004ccd !important;
+            background: rgba(15, 98, 254, 0.05) !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+
+<!-- SideNavBar (unchanged, but kept as is) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low/80 backdrop-blur-[30px] border-r border-white/40 shadow-md p-4 gap-2 z-50">
+    <div class="mb-8 px-2 pt-4">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-primary">Career Pilot</h1>
+        <p class="font-label-sm text-label-sm text-on-surface-variant">AI Interview Engine</p>
+    </div>
+    <div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all" href="#"><span class="material-symbols-outlined">dashboard</span>College Analytics</a>
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all" href="#"><span class="material-symbols-outlined">groups</span>Placement Groups</a>
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all" href="#"><span class="material-symbols-outlined">leaderboard</span>Global Leaderboard</a>
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md bg-primary-container/20 text-primary transition-all" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">checklist</span>Placement Outcomes</a>
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all" href="#"><span class="material-symbols-outlined">assessment</span>Student Progress</a>
+        <a class="flex items-center gap-3 px-3 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition-all" href="#"><span class="material-symbols-outlined">settings</span>Settings</a>
+    </div>
+</nav>
+
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-gutter lg:p-margin-desktop max-w-[1600px] mx-auto w-full flex flex-col gap-gutter">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg md:text-display-lg md:font-display-lg text-on-surface">Placement Outcomes</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Track and analyze student placement success rates.</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="glass-panel px-4 py-2 rounded-lg font-label-md text-label-md text-primary flex items-center gap-2 hover:bg-white/80 transition-colors">
+                <span class="material-symbols-outlined">download</span> Export Report
+            </button>
+        </div>
+    </header>
+
+    <!-- Bento Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+        <!-- Left Column: Data Entry -->
+        <div class="lg:col-span-7 flex flex-col gap-gutter">
+            <!-- Bulk Upload Area -->
+            <div class="glass-panel rounded-xl p-8 flex flex-col items-center justify-center text-center border-2 border-dashed border-outline-variant/50 hover:border-primary/50 transition-colors cursor-pointer group" id="dropzone">
+                <div class="w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-3xl">cloud_upload</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Bulk Outcome Upload</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto mb-6">Drag and drop CSV or Excel files containing student outcomes, or click to browse. Ensure columns match the standard template.</p>
+                <button class="bg-surface-lowest text-primary border border-primary/20 px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container/10 transition-colors">Select File</button>
+            </div>
+
+            <!-- Single Record Form -->
+            <div class="glass-panel rounded-xl p-6 lg:p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-primary">person_add</span>
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Add Single Record</h3>
+                </div>
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Student ID / Name</label>
+                        <input class="glass-input w-full rounded-lg px-4 py-2.5 font-body-md outline-none" placeholder="e.g. S10294 or Jane Doe" type="text">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Company</label>
+                        <input class="glass-input w-full rounded-lg px-4 py-2.5 font-body-md outline-none" placeholder="e.g. Google, Deloitte" type="text">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Role</label>
+                        <input class="glass-input w-full rounded-lg px-4 py-2.5 font-body-md outline-none" placeholder="e.g. Software Engineer" type="text">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant">Status</label>
+                        <div class="relative">
+                            <select class="glass-input w-full rounded-lg px-4 py-2.5 font-body-md outline-none appearance-none cursor-pointer">
+                                <option disabled selected value="">Select Status...</option>
+                                <option value="accepted">Offer Accepted</option>
+                                <option value="pending">Pending</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="withdrawn">Withdrawn</option>
+                            </select>
+                            <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 pt-2 flex justify-end">
+                        <button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-md text-label-md shadow-md shadow-primary/20 hover:shadow-lg transition-all hover:-translate-y-0.5" type="button">Save Record</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Visuals & Feed (Empty state) -->
+        <div class="lg:col-span-5 flex flex-col gap-gutter">
+            <!-- Success Correlation Chart (clean, no demo data) -->
+            <div class="glass-panel rounded-xl p-6 flex flex-col h-[300px]">
+                <div class="mb-4">
+                    <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Success Correlation</h3>
+                    <p class="font-headline-md text-headline-md text-on-surface mt-1">Mock Score vs. Offers</p>
+                </div>
+                <div class="flex-1 relative w-full flex items-center justify-center text-on-surface-variant border border-outline-variant/30 rounded-lg bg-white/30">
+                    <div class="text-center">
+                        <span class="material-symbols-outlined text-4xl text-outline-variant mb-2">insight</span>
+                        <p class="font-body-md text-body-md">No data available yet</p>
+                        <p class="font-label-sm text-label-sm text-outline mt-1">Upload outcomes or add records to see correlation</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Outcomes Feed (empty) -->
+            <div class="glass-panel rounded-xl p-6 flex-1 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-headline-md text-headline-md text-on-surface">Recent Updates</h3>
+                    <button class="text-primary font-label-sm text-label-sm hover:underline opacity-50 cursor-not-allowed" disabled>View All</button>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center py-10 text-center">
+                    <span class="material-symbols-outlined text-5xl text-outline-variant mb-3">feed</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">No placement outcomes recorded</p>
+                    <p class="font-label-sm text-label-sm text-outline mt-1">Use the upload or add form to start tracking student success</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Drag and drop visual feedback (kept, no demo data)
+    const dropzone = document.getElementById('dropzone');
+    if (dropzone) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => { e.preventDefault(); e.stopPropagation(); });
+        });
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.add('drag-active'));
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.remove('drag-active'));
+        });
+    }
+</script>
+</body>
+</html>

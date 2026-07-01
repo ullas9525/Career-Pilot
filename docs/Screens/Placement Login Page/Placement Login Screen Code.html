@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Coordinator Access - Career Pilot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#002108", "tertiary": "#006526", "on-primary-fixed-variant": "#003da9",
+                        "on-tertiary": "#ffffff", "error-container": "#ffdad6", "secondary-container": "#6ef3f3",
+                        "on-background": "#1b1c1d", "error": "#ba1a1a", "surface-container-highest": "#e3e2e4",
+                        "on-secondary-fixed-variant": "#004f4f", "tertiary-fixed-dim": "#69de7c", "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#f3f3ff", "surface-tint": "#0052dd", "surface-container-low": "#f5f3f5",
+                        "on-primary": "#ffffff", "inverse-primary": "#b4c5ff", "inverse-on-surface": "#f2f0f2",
+                        "surface-bright": "#faf9fb", "secondary-fixed-dim": "#50dad9", "surface": "#faf9fb",
+                        "on-tertiary-container": "#d4ffd2", "secondary-fixed": "#72f6f6", "surface-container": "#efedef",
+                        "on-secondary": "#ffffff", "outline-variant": "#c3c6d8", "outline": "#737687",
+                        "on-secondary-container": "#006e6e", "surface-variant": "#e3e2e4", "on-surface-variant": "#424656",
+                        "on-error-container": "#93000a", "secondary": "#006a6a", "on-error": "#ffffff",
+                        "tertiary-container": "#008133", "surface-container-high": "#e9e8ea", "primary-container": "#0f62fe",
+                        "on-tertiary-fixed-variant": "#00531e", "on-secondary-fixed": "#002020", "primary-fixed": "#dbe1ff",
+                        "on-primary-fixed": "#00174c", "on-surface": "#1b1c1d", "background": "#faf9fb",
+                        "inverse-surface": "#303032", "surface-dim": "#dbd9dc", "primary": "#004ccd",
+                        "tertiary-fixed": "#85fb96", "primary-fixed-dim": "#b4c5ff"
+                    },
+                    borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+                    spacing: { "margin-desktop": "64px", "gutter": "24px", "margin-mobile": "20px", "unit": "8px", "container-max": "1280px" },
+                    fontFamily: { "body-md": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "display-lg-mobile": ["Plus Jakarta Sans"], "body-lg": ["Inter"] },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .bg-mesh {
+            background-image: radial-gradient(at 10% 20%, hsla(224,100%,94%,1) 0px, transparent 50%),
+                              radial-gradient(at 80% 90%, hsla(224,100%,90%,1) 0px, transparent 50%),
+                              radial-gradient(at 90% 10%, hsla(180,100%,94%,1) 0px, transparent 50%);
+            background-color: #faf9fb;
+        }
+    </style>
+</head>
+<body class="bg-mesh min-h-screen flex items-center justify-center m-0 p-0 antialiased">
+    <main class="w-full max-w-[480px] px-4">
+        <div class="glass-panel rounded-xl shadow-[0_8px_32px_rgba(0,76,205,0.08)] p-8 md:p-10 relative overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none rounded-xl border border-white/80" style="mix-blend-mode: overlay;"></div>
+
+            <!-- Brand Header -->
+            <div class="flex flex-col items-center mb-8 text-center">
+                <div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-4 shadow-sm border border-white">
+                    <span class="material-symbols-outlined text-primary text-[32px]">admin_panel_settings</span>
+                </div>
+                <h1 class="font-headline-lg text-headline-lg text-on-primary-fixed mb-2">Coordinator Access</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">Manage your placement groups and track student readiness.</p>
+            </div>
+
+            <!-- Form -->
+            <form class="space-y-5" onsubmit="event.preventDefault();">
+                <!-- Work Email -->
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface mb-2" for="email">Work Email</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">mail</span>
+                        <input class="w-full bg-white/50 border border-outline-variant/30 rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-fixed transition-all outline-none hover:bg-white/70" id="email" placeholder="name@college.edu" type="email" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+                        <a class="font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors" href="#">Forgot password?</a>
+                    </div>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">lock</span>
+                        <input class="w-full bg-white/50 border border-outline-variant/30 rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-fixed transition-all outline-none hover:bg-white/70" id="password" placeholder="••••••••" type="password" required>
+                    </div>
+                </div>
+
+                <!-- College Code -->
+                <div>
+                    <label class="block font-label-md text-label-md text-on-surface mb-2" for="college_code">College Code</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">domain</span>
+                        <input class="w-full bg-white/50 border border-outline-variant/30 rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary-fixed transition-all outline-none hover:bg-white/70 uppercase placeholder:lowercase" id="college_code" placeholder="e.g. ENG2024" type="text" required>
+                    </div>
+                </div>
+
+                <!-- Primary Action -->
+                <button class="w-full mt-8 bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md py-3.5 px-6 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.01] transition-all duration-200 flex items-center justify-center gap-2 group" type="submit">
+                    Sign In as Coordinator
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+            </form>
+
+            <!-- Divider (fixed) -->
+            <div class="flex items-center my-6 gap-4">
+                <div class="flex-1 h-px bg-outline-variant/40"></div>
+                <div class="flex-1 h-px bg-outline-variant/40"></div>
+            </div>
+
+            <!-- Optional: Demo request link (kept minimal) -->
+            <div class="text-center">
+                <a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Request demo access</a>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="text-center mt-6 flex justify-center gap-6">
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+        </div>
+        <p class="text-center font-label-sm text-label-sm text-outline mt-2">© 2024 Career Pilot AI. All rights reserved.</p>
+    </main>
+</body>
+</html>

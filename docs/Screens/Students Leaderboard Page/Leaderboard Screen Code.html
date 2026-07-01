@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Placement Leaderboard - Career Pilot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(115, 118, 135, 0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(115, 118, 135, 0.4); }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#dbe1ff", "on-primary-container": "#f3f3ff", "surface-container": "#efedef",
+                        "on-tertiary-container": "#d4ffd2", "on-error-container": "#93000a", "surface-dim": "#dbd9dc",
+                        "inverse-primary": "#b4c5ff", "surface-container-highest": "#e3e2e4", "on-secondary-fixed": "#002020",
+                        "secondary-fixed-dim": "#50dad9", "surface-container-high": "#e9e8ea", "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#69de7c", "inverse-on-surface": "#f2f0f2", "primary-container": "#0f62fe",
+                        "primary-fixed-dim": "#b4c5ff", "surface": "#faf9fb", "secondary-container": "#6ef3f3",
+                        "error-container": "#ffdad6", "surface-container-lowest": "#ffffff", "outline-variant": "#c3c6d8",
+                        "surface-bright": "#faf9fb", "background": "#faf9fb", "on-primary": "#ffffff", "on-tertiary": "#ffffff",
+                        "secondary": "#006a6a", "error": "#ba1a1a", "surface-tint": "#0052dd", "on-primary-fixed": "#00174c",
+                        "tertiary-fixed": "#85fb96", "outline": "#737687", "on-secondary-container": "#006e6e",
+                        "on-primary-fixed-variant": "#003da9", "on-tertiary-fixed": "#002108", "inverse-surface": "#303032",
+                        "on-background": "#1b1c1d", "on-surface": "#1b1c1d", "on-error": "#ffffff", "on-surface-variant": "#424656",
+                        "tertiary": "#006526", "tertiary-container": "#008133", "on-secondary-fixed-variant": "#004f4f",
+                        "primary": "#004ccd", "surface-container-low": "#f5f3f5", "on-tertiary-fixed-variant": "#00531e",
+                        "surface-variant": "#e3e2e4", "secondary-fixed": "#72f6f6"
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                    spacing: { "unit": "8px", "container-max": "1280px", "margin-desktop": "64px", "gutter": "24px", "margin-mobile": "20px" },
+                    fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "display-lg-mobile": ["Plus Jakarta Sans"] },
+                    fontSize: {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden flex relative selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient background -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] rounded-full bg-primary-fixed-dim/20 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-tertiary-fixed-dim/10 blur-[100px]"></div>
+</div>
+
+<!-- Sidebar -->
+<nav class="bg-surface-container-low/80 backdrop-blur-[30px] h-screen w-64 fixed left-0 top-0 border-r border-white/40 shadow-md flex flex-col p-4 gap-2 z-50">
+    <div class="flex items-center gap-3 px-2 py-4 mb-4">
+        <div class="w-10 h-10 rounded-xl overflow-hidden shadow-sm border border-white/50 shrink-0 relative">
+            <img alt="Career Pilot AI Assistant" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENednKGHxfAIFs3_pgMm2Qc_tRt4AJ-TPw1gs8O8jawmIxM83hz084dbpr-9di8yveBppnO1pGj2YJ6j9V_a-GLW2L1i5cJ_oybKESjetiUgHuh4omN3jL0_gj3lVLQgI6S8w5EOXfjuGXEc8Fs_BnbqB01sjvNb0NUo6LLJ80oCjV9F5FHd-s03m7jUYW_iWiZ92Q4iHmzSKwo8-C-4TPbTHH7yRaECPNo1_Zp3_nWhfv0jw-pvcNLw2Z-6GEm_cqvTir8Ulp9s">
+            <div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+        </div>
+        <div>
+            <span class="font-headline-sm text-headline-sm font-bold text-primary">Career Pilot</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant block">AI Interview Engine</span>
+        </div>
+    </div>
+    <div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined">dashboard</span> Overview</a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined">history</span> History</a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined">ads_click</span> Interview Process</a>
+        <a class="flex items-center gap-3 px-4 py-3 rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined">psychology</span> Mock Interview</a>
+        <a class="flex items-center gap-3 px-4 py-3 bg-primary-container/20 text-primary rounded-xl font-label-md text-label-md font-semibold" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span> Leaderboard</a>
+    </div>
+    <div class="mt-auto pt-4 border-t border-outline-variant/20 flex flex-col gap-1">
+        <button class="w-full bg-gradient-to-r from-primary to-surface-tint text-on-primary font-label-md text-label-md py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition active:scale-95 flex items-center justify-center gap-2 mb-2 relative overflow-hidden group">
+            <span class="relative z-10">Start Mock Session</span>
+            <span class="material-symbols-outlined relative z-10 text-[18px]">play_arrow</span>
+        </button>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-xl font-label-sm text-label-sm text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined text-[18px]">settings</span> Settings</a>
+        <a class="flex items-center gap-3 px-4 py-2 rounded-xl font-label-sm text-label-sm text-on-surface-variant hover:bg-white/40 transition" href="#"><span class="material-symbols-outlined text-[18px]">help</span> Support</a>
+    </div>
+</nav>
+
+<!-- Main content -->
+<div class="ml-64 flex-1 flex flex-col h-screen overflow-y-auto overflow-x-hidden relative">
+    <!-- Top bar -->
+    <header class="w-full top-0 sticky bg-white/60 backdrop-blur-[20px] border-b border-white/40 shadow-sm flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto z-40">
+        <div class="flex items-center gap-6"><h1 class="font-headline-md text-headline-md font-bold text-on-surface hidden md:block">Leaderboard</h1></div>
+        <nav class="hidden lg:flex items-center gap-8">
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition" href="#">Practice</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition" href="#">Feedback</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition" href="#">Mentorship</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 hover:text-primary transition relative"><span class="material-symbols-outlined">notifications</span><span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span></button>
+            <button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/50 hover:text-primary transition"><span class="material-symbols-outlined">dark_mode</span></button>
+            <div class="w-9 h-9 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden cursor-pointer ml-2"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7tHYfMh79S7X-2fdBzxtjqF2bGk4Ov2GP7Cz-uU65qzdSSEU63Qj-I1Jcy_WdVBGDXvMkcKrko8xIgPbKeb9rEJMupyjHvK0SHu2sPnDF1-oqg5D1J-LjvrwS6D2J0TSmDOVp9mHi4Ji-shpEgG-4bNe1Jgw9PfPMRwnSK4yPEZfLLszd-bFRxajWD1m3I_TZF0JOwFy7npCmUYThvlf0jPI4rY3cVdskaXMhd3ot8hhCzrbKTaoFiPznKXao5WcHQYHlwCQjVRg"></div>
+        </div>
+    </header>
+
+    <main class="flex-1 px-margin-desktop py-8 max-w-container-max mx-auto w-full flex flex-col gap-6 pb-20">
+
+        <!-- Your Position Banner -->
+        <div class="bg-gradient-to-r from-primary/10 to-secondary/5 border border-primary/20 rounded-2xl p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary text-[24px]" style="font-variation-settings: 'FILL' 1;">person</span></div>
+            <div><p class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Your Position (Anonymous)</p><p class="font-headline-md text-headline-md text-on-surface mt-0.5">You are in the <strong class="text-primary">top 20%</strong> of your cohort</p><p class="text-sm text-on-surface-variant mt-0.5">Readiness Score: <strong>7.2 / 10</strong> &nbsp;·&nbsp; Engagement Score: <strong class="text-secondary">82 / 100</strong></p></div>
+          </div>
+          <div class="flex gap-3 shrink-0"><div class="text-center px-5 py-3 bg-white/60 rounded-xl border border-white/60"><p class="text-2xl font-bold text-primary">Top 20%</p><p class="text-xs text-outline mt-0.5">Cohort Percentile</p></div><div class="text-center px-5 py-3 bg-white/60 rounded-xl border border-white/60"><p class="text-2xl font-bold text-secondary">82</p><p class="text-xs text-outline mt-0.5">Engagement</p></div></div>
+        </div>
+
+        <!-- Privacy Notice (explicit cohort-only) -->
+        <div class="flex items-start gap-2 text-xs text-on-surface-variant bg-surface-container/60 rounded-xl px-4 py-3 border border-outline-variant/20">
+          <span class="material-symbols-outlined text-[16px] text-outline mt-0.5">shield</span>
+          <span><strong class="text-on-surface">Privacy-first leaderboard:</strong> Full names are never shown. All rankings use anonymous IDs <strong class="text-primary">within your college only</strong>. <strong>No cross‑college comparison</strong> – you are only compared to students in your own cohort.</span>
+        </div>
+
+        <!-- Leaderboard grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            <!-- Main leaderboard -->
+            <section class="lg:col-span-8 flex flex-col">
+                <div class="bg-white/60 backdrop-blur-[20px] border border-white/60 shadow-sm rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary">emoji_events</span><h3 class="font-headline-md text-[24px] font-semibold text-on-surface">Rankings</h3></div><span class="px-3 py-1 bg-surface-container-high rounded-full font-label-sm text-on-surface-variant border border-outline-variant/20">Updated just now</span></div>
+                    <!-- Tabs -->
+                    <div class="flex items-center gap-2 mb-6 border-b border-outline-variant/30 pb-2">
+                        <button id="tab-group" onclick="switchTab('group')" class="px-4 py-2 font-label-md text-primary border-b-2 border-primary -mb-[10px]">Your Cohort</button>
+                        <button id="tab-global" onclick="switchTab('global')" class="px-4 py-2 font-label-md text-on-surface-variant hover:text-on-surface transition-colors">By Role</button>
+                    </div>
+                    <!-- Column headers -->
+                    <div class="grid grid-cols-12 text-xs font-semibold text-outline uppercase tracking-wider px-3 pb-2 border-b border-outline-variant/20 mb-2">
+                      <span class="col-span-1">Rank</span><span class="col-span-3">Student</span><span class="col-span-2 text-center">Percentile</span><span class="col-span-2 text-center">Score</span><span class="col-span-2 text-center">Engagement</span><span class="col-span-2 text-center">Sessions</span>
+                    </div>
+                    <div id="leaderboard-rows" class="flex flex-col gap-1"></div>
+                </div>
+            </section>
+
+            <!-- Right column -->
+            <div class="lg:col-span-4 flex flex-col gap-gutter">
+                <!-- Cohort Stats -->
+                <section class="bg-white/60 backdrop-blur-[20px] border border-white/60 shadow-sm rounded-2xl p-6 flex flex-col">
+                    <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">groups</span><h3 class="font-headline-md text-[18px] font-semibold text-on-surface">Cohort Overview</h3></div>
+                    <div class="space-y-3">
+                      <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Total students</span><strong>48</strong></div>
+                      <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Avg. Readiness Score</span><strong class="text-primary">6.4 / 10</strong></div>
+                      <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Avg. Engagement Score</span><strong class="text-secondary">71 / 100</strong></div>
+                      <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Top 10% threshold</span><strong>8.5+</strong></div>
+                      <div class="flex justify-between text-sm"><span class="text-on-surface-variant">Top 25% threshold</span><strong>7.5+</strong></div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-outline-variant/20">
+                      <p class="text-xs font-semibold text-on-surface mb-2">Score Distribution</p>
+                      <div class="space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs"><span class="w-20 text-outline">8.0 – 10</span><div class="flex-1 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-tertiary rounded-full" style="width:12%"></div></div><span class="w-6 text-right">6</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-20 text-outline">7.0 – 7.9</span><div class="flex-1 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-primary rounded-full" style="width:29%"></div></div><span class="w-6 text-right">14</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-20 text-outline">6.0 – 6.9</span><div class="flex-1 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-primary/50 rounded-full" style="width:35%"></div></div><span class="w-6 text-right">17</span></div>
+                        <div class="flex items-center gap-2 text-xs"><span class="w-20 text-outline">Below 6</span><div class="flex-1 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error/50 rounded-full" style="width:23%"></div></div><span class="w-6 text-right">11</span></div>
+                      </div>
+                    </div>
+                </section>
+
+                <!-- Engagement Score Legend -->
+                <section class="bg-white/60 backdrop-blur-[20px] border border-white/60 shadow-sm rounded-2xl p-5 flex flex-col">
+                    <div class="flex items-center gap-2 mb-3"><span class="material-symbols-outlined text-primary text-[20px]">info</span><h3 class="font-label-md font-semibold text-on-surface">Engagement Score</h3></div>
+                    <p class="text-xs text-on-surface-variant mb-3">Calculated from practice frequency + consistency, independent of interview scores.</p>
+                    <div class="space-y-2 text-xs">
+                      <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-tertiary shrink-0"></div><span><strong>Practice Frequency (50%)</strong> — sessions per week</span></div>
+                      <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-primary shrink-0"></div><span><strong>Consistency (30%)</strong> — streak days / 30</span></div>
+                      <div class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-secondary shrink-0"></div><span><strong>Improvement Rate (20%)</strong> — score trend over last 4 sessions</span></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container-lowest py-8 border-t border-outline-variant/30 mt-auto w-full">
+        <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-4">
+            <span class="font-headline-md text-[16px] font-bold text-primary">Career Pilot</span>
+            <div class="flex gap-6"><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition" href="#">Privacy Policy</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition" href="#">Terms of Service</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition" href="#">Contact Support</a></div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Career Pilot AI. All rights reserved.</span>
+        </div>
+    </footer>
+</div>
+
+<script>
+  const cohortData = [
+    { id: 7,  score: 9.1, engagement: 97, sessions: 18, percentile: "Top 2%",  isYou: false },
+    { id: 23, score: 8.8, engagement: 94, sessions: 15, percentile: "Top 5%",  isYou: false },
+    { id: 11, score: 8.5, engagement: 88, sessions: 14, percentile: "Top 8%",  isYou: false },
+    { id: 34, score: 8.2, engagement: 91, sessions: 16, percentile: "Top 10%", isYou: false },
+    { id: 5,  score: 8.0, engagement: 79, sessions: 12, percentile: "Top 12%", isYou: false },
+    { id: 19, score: 7.8, engagement: 85, sessions: 13, percentile: "Top 15%", isYou: false },
+    { id: 42, score: 7.2, engagement: 82, sessions: 11, percentile: "Top 20%", isYou: true  },
+    { id: 8,  score: 7.0, engagement: 74, sessions: 10, percentile: "Top 25%", isYou: false },
+    { id: 31, score: 6.8, engagement: 66, sessions:  8, percentile: "Top 30%", isYou: false },
+    { id: 16, score: 6.5, engagement: 61, sessions:  7, percentile: "Top 35%", isYou: false },
+  ];
+
+  const roleData = [
+    { id: 3,  role: "Frontend Eng.", score: 9.0, engagement: 95, sessions: 17, percentile: "Top 3%",  isYou: false },
+    { id: 27, role: "Backend Eng.",   score: 8.7, engagement: 90, sessions: 14, percentile: "Top 6%",  isYou: false },
+    { id: 14, role: "Full-Stack",     score: 8.3, engagement: 86, sessions: 13, percentile: "Top 10%", isYou: false },
+    { id: 42, role: "Frontend Eng.", score: 7.2, engagement: 82, sessions: 11, percentile: "Top 20%", isYou: true  },
+    { id: 9,  role: "Data Scientist", score: 7.0, engagement: 75, sessions: 10, percentile: "Top 25%", isYou: false },
+  ];
+
+  let currentTab = 'group';
+
+  function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tab-group').className = tab === 'group'
+      ? 'px-4 py-2 font-label-md text-primary border-b-2 border-primary -mb-[10px]'
+      : 'px-4 py-2 font-label-md text-on-surface-variant hover:text-on-surface transition-colors';
+    document.getElementById('tab-global').className = tab === 'global'
+      ? 'px-4 py-2 font-label-md text-primary border-b-2 border-primary -mb-[10px]'
+      : 'px-4 py-2 font-label-md text-on-surface-variant hover:text-on-surface transition-colors';
+    renderRows(tab === 'group' ? cohortData : roleData, tab === 'global');
+  }
+
+  function medalIcon(rank) {
+    if (rank === 1) return '<span class="text-lg">🥇</span>';
+    if (rank === 2) return '<span class="text-lg">🥈</span>';
+    if (rank === 3) return '<span class="text-lg">🥉</span>';
+    return `<span class="text-sm font-bold text-outline">#${rank}</span>`;
+  }
+
+  function engagementColor(e) {
+    if (e >= 85) return 'text-tertiary';
+    if (e >= 70) return 'text-primary';
+    return 'text-outline';
+  }
+
+  function renderRows(data, showRole) {
+    const container = document.getElementById('leaderboard-rows');
+    container.innerHTML = data.map((s, i) => {
+      const rank = i + 1;
+      const youBadge = s.isYou ? '<span class="ml-2 text-[10px] font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">YOU</span>' : '';
+      const rowBg = s.isYou ? 'bg-primary/5 border border-primary/20' : 'hover:bg-surface-container/40';
+      const roleCell = showRole ? `<span class="text-xs text-outline">${s.role}</span>` : '';
+      return `
+        <div class="grid grid-cols-12 items-center px-3 py-3 rounded-xl transition ${rowBg}">
+          <div class="col-span-1 flex items-center">${medalIcon(rank)}</div>
+          <div class="col-span-3"><p class="font-label-md text-on-surface">User ${s.id}${youBadge}</p>${roleCell}</div>
+          <div class="col-span-2 text-center"><span class="text-xs font-semibold bg-primary/10 text-primary px-2 py-0.5 rounded-full">${s.percentile}</span></div>
+          <div class="col-span-2 text-center font-bold text-on-surface">${s.score.toFixed(1)}</div>
+          <div class="col-span-2 text-center font-bold ${engagementColor(s.engagement)}">${s.engagement}</div>
+          <div class="col-span-2 text-center text-sm text-on-surface-variant">${s.sessions}</div>
+        </div>`;
+    }).join('');
+  }
+
+  renderRows(cohortData, false);
+</script>
+</body>
+</html>

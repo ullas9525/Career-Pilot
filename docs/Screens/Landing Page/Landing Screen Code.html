@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Career Pilot - Ace Your Interviews with AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#dbe1ff",
+                        "on-primary-container": "#f3f3ff",
+                        "surface-container": "#efedef",
+                        "on-tertiary-container": "#d4ffd2",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dbd9dc",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#e3e2e4",
+                        "on-secondary-fixed": "#002020",
+                        "secondary-fixed-dim": "#50dad9",
+                        "surface-container-high": "#e9e8ea",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#69de7c",
+                        "inverse-on-surface": "#f2f0f2",
+                        "primary-container": "#0f62fe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface": "#faf9fb",
+                        "secondary-container": "#6ef3f3",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d8",
+                        "surface-bright": "#faf9fb",
+                        "background": "#faf9fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006a6a",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0052dd",
+                        "on-primary-fixed": "#00174c",
+                        "tertiary-fixed": "#85fb96",
+                        "outline": "#737687",
+                        "on-secondary-container": "#006e6e",
+                        "on-primary-fixed-variant": "#003da9",
+                        "on-tertiary-fixed": "#002108",
+                        "inverse-surface": "#303032",
+                        "on-background": "#1b1c1d",
+                        "on-surface": "#1b1c1d",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "tertiary": "#006526",
+                        "tertiary-container": "#008133",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "primary": "#004ccd",
+                        "surface-container-low": "#f5f3f5",
+                        "on-tertiary-fixed-variant": "#00531e",
+                        "surface-variant": "#e3e2e4",
+                        "secondary-fixed": "#72f6f6"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    spacing: {
+                        unit: "8px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "500" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 76, 205, 0.05);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 12px 40px 0 rgba(0, 76, 205, 0.1);
+            transform: translateY(-6px);
+        }
+        .bg-gradient-canvas {
+            background: radial-gradient(circle at top left, #f3f3ff 0%, #faf9fb 50%, #e9e8ea 100%);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(90deg, #004ccd, #006e6e);
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(24px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeLeft {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeRight {
+            0% { opacity: 0; transform: translateX(30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes softPulse {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        .animate-fade-up { animation: fadeUp 0.7s ease forwards; }
+        .animate-fade-left { animation: fadeLeft 0.7s ease forwards; }
+        .animate-fade-right { animation: fadeRight 0.7s ease forwards; }
+        .animate-scale-in { animation: scaleIn 0.5s ease forwards; }
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-soft-pulse { animation: softPulse 1.8s ease-in-out infinite alternate; }
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .reveal-on-scroll.revealed { opacity: 1; transform: translateY(0); }
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .stagger-children.revealed > * { opacity: 1; transform: translateY(0); }
+        .stagger-children.revealed > *:nth-child(1) { transition-delay: 0s; }
+        .stagger-children.revealed > *:nth-child(2) { transition-delay: 0.08s; }
+        .stagger-children.revealed > *:nth-child(3) { transition-delay: 0.16s; }
+        .stagger-children.revealed > *:nth-child(4) { transition-delay: 0.24s; }
+        .stagger-children.revealed > *:nth-child(5) { transition-delay: 0.32s; }
+        .stagger-children.revealed > *:nth-child(6) { transition-delay: 0.4s; }
+        button, .glass-card, a { transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
+        button:active { transform: scale(0.97); }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col bg-gradient-canvas overflow-x-hidden">
+
+<header class="w-full top-0 sticky z-50 bg-white/60 dark:bg-black/60 backdrop-blur-[20px] border-b border-white/40 dark:border-white/10 shadow-sm transition-colors duration-300 reveal-on-scroll">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Career Pilot</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#features">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#coordinator-benefits">For Coordinators</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-label-md text-label-md text-primary border border-primary px-4 py-2 rounded-full hover:bg-primary/5 transition-colors duration-200">Login</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary px-6 py-2 rounded-full shadow-md hover:bg-primary/90 hover:shadow-lg transition-all duration-200 active:scale-95">Get Started</button>
+</div>
+</div>
+</header>
+
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative pt-24 pb-32 overflow-hidden px-margin-mobile md:px-margin-desktop">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px] -z-10 animate-soft-pulse"></div>
+<div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[80px] -z-10 animate-soft-pulse" style="animation-delay: 1s;"></div>
+<div class="max-w-container-max mx-auto grid md:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8 z-10 reveal-on-scroll">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel w-fit border border-primary/20 animate-fade-up">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Next-Gen Interview Prep</span>
+</div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background animate-fade-left" style="animation-delay: 0.1s;">
+                        Ace Your Interviews with <span class="text-gradient">AI Mentorship</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg animate-fade-left" style="animation-delay: 0.2s;">
+                        Simulate high-stakes interviews, receive instant, rubric-aligned feedback, and build the calm confidence you need to land your dream role.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-up" style="animation-delay: 0.3s;">
+<button class="font-label-md text-label-md bg-gradient-to-r from-primary to-surface-tint text-on-primary px-8 py-4 rounded-xl shadow-[0_8px_16px_rgba(0,76,205,0.2)] hover:shadow-[0_12px_24px_rgba(0,76,205,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                            Get Started Free
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="font-label-md text-label-md glass-panel text-primary px-8 py-4 rounded-xl hover:bg-white/80 transition-all duration-300 flex items-center justify-center gap-2">
+                            I'm a Placement Coordinator
+                        </button>
+</div>
+<div class="flex items-center gap-4 mt-4 animate-fade-up" style="animation-delay: 0.4s;">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-white overflow-hidden"><img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3tNzheNhvkqZ1fpOW1atj0RK9wz5X9kc1Crdw-5fVCd3OlWykoT82dfnteUhmzgZL0dWNi5249v4oJoS70VxYmvdp9aQSE6ioJFXV_LoOJECNXLU1rCbihFi_ssY_Y8jgChBGlTph2Uo_sOJSt3b-XTwoKQywFVE_WJ6Hp8CHm8rKItdfnd-K7hPM_w_oig9UN0GxxPQ94CHa1QqNVKyMtNxafkUqNEO1Ffk5ZFMuvcf6UzWNtPFbyc3-EL0QagKKKEc3aBHLoYU"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-white overflow-hidden"><img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRJfDCehMnkkm-JK2-nLON92-bALGPIdryKHqGeU2sTE2dvUWFsm9JKeuM5vF4Ap41IYxdI10j8tfFH_6-laJkggJSm5aLUyzn5EU5TJOgtRD_8m8j7E2VAEUJ6Sz98EJC6T2nh1l_LRjIZQ8h6kuuhr3loR9ZD1xxhd4tB4gsBjr2d1uyHIponf8GBqRk7B8CLAY_ki_yGf9T_r86i2RDg0NSLMwW4qMsCvqreVklIcpZY3hoZwhJ05ezVx8WtCj1BtEptEUUgfA"></div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-white overflow-hidden flex items-center justify-center"><span class="font-label-sm text-[10px] text-on-surface-variant">Join</span></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Be among the first to try Career Pilot</p>
+</div>
+</div>
+<div class="relative z-10 w-full aspect-square md:aspect-auto md:h-[600px] rounded-3xl glass-panel p-2 flex items-center justify-center overflow-hidden reveal-on-scroll" style="animation-delay: 0.2s;">
+<img alt="Dashboard Preview" class="rounded-2xl w-full h-full object-cover shadow-inner opacity-90 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvhTY6iwfXTCpjJXxkcPnCNSs6egZqZwSe1XjDMwSuIAjs8Ia7FnKcNF4nxTmW8RytU73zM_FSwVJRrHAhzSqNASUiz87xCNLD0uiQIEB07KiZ0op7KH2zPMhulJB_t7qaAHg1tOJ1_0bN4HVIPswmV6Y0l3fyLRNmsAkpwhmv3J5yBFD0b7GZ28UMqlGCn91geeLq2q5bvnSsSeDsGzjCvaCQ7ee3oZ4yNoTq2sWBL6HD7ige53tIP2o8BS93qju9jTT0WB5-m60">
+<div class="absolute top-10 right-[-20px] glass-card p-4 rounded-xl flex items-center gap-3 animate-float">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary"><span class="material-symbols-outlined">check_circle</span></div>
+<div><p class="font-label-sm text-label-sm text-on-surface">AI Score Preview</p><p class="font-headline-md text-headline-md text-tertiary font-bold">92/100</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Features Bento Grid -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop relative" id="features">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16 max-w-2xl mx-auto reveal-on-scroll">
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-4">Precision Tools for Peak Performance</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Our AI doesn't just grade you; it mentors you. Experience a simulation environment designed to surface your strengths and iron out your weaknesses.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+<!-- Feature 1: AI Scoring (Large Card) -->
+<div class="glass-card rounded-3xl p-8 md:col-span-2 flex flex-col justify-between group overflow-hidden relative reveal-on-scroll">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[60px] group-hover:bg-primary/20 transition-colors duration-500"></div>
+<div class="relative z-10"><div class="w-12 h-12 rounded-2xl bg-primary-container/20 flex items-center justify-center mb-6 border border-primary/10"><span class="material-symbols-outlined text-primary text-[24px]">psychology</span></div><h3 class="font-headline-md text-headline-md text-on-surface mb-2">Real-time AI Scoring</h3><p class="font-body-md text-body-md text-on-surface-variant max-w-md">Receive granular feedback on articulation, technical accuracy, and pacing instantly after every mock session.</p></div>
+<div class="mt-8 bg-surface-container-lowest/80 rounded-2xl p-4 border border-outline-variant/20 flex items-end gap-4 h-32 relative z-10"><div class="w-8 bg-primary/20 rounded-t-md h-1/3 group-hover:h-1/2 transition-all duration-500"></div><div class="w-8 bg-primary/40 rounded-t-md h-1/2 group-hover:h-2/3 transition-all duration-500 delay-75"></div><div class="w-8 bg-primary/60 rounded-t-md h-2/3 group-hover:h-4/5 transition-all duration-500 delay-150"></div><div class="w-8 bg-primary rounded-t-md h-full relative group-hover:shadow-[0_0_15px_rgba(0,76,205,0.4)] transition-all duration-500 delay-200"><div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">98%</div></div></div>
+</div>
+<!-- Feature 2: Rubrics -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between group reveal-on-scroll"><div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center mb-6 border border-secondary/10"><span class="material-symbols-outlined text-secondary text-[24px]">fact_check</span></div><div><h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Company-Specific Rubrics</h3><p class="font-body-md text-body-md text-on-surface-variant text-sm">Practice against the exact evaluation criteria used by top-tier tech and finance firms.</p></div><div class="mt-6 flex flex-wrap gap-2"><span class="font-label-sm text-[10px] px-2 py-1 rounded-full bg-secondary-container/30 text-secondary border border-secondary/20">STAR Method</span><span class="font-label-sm text-[10px] px-2 py-1 rounded-full bg-surface-variant text-on-surface-variant border border-outline-variant/30">System Design</span></div></div>
+<!-- Feature 3: Anxiety Management -->
+<div class="glass-card rounded-3xl p-8 flex flex-col justify-between group reveal-on-scroll"><div class="w-12 h-12 rounded-2xl bg-tertiary-container/20 flex items-center justify-center mb-6 border border-tertiary/10"><span class="material-symbols-outlined text-tertiary text-[24px]">self_improvement</span></div><div><h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Calm Confidence</h3><p class="font-body-md text-body-md text-on-surface-variant text-sm">Biometric pacing analysis and guided breathing exercises to manage interview anxiety before you start.</p></div></div>
+<!-- Feature 4: Dashboard -->
+<div class="glass-card rounded-3xl p-8 md:col-span-2 flex flex-col md:flex-row items-center gap-8 group reveal-on-scroll"><div class="flex-1"><div class="w-12 h-12 rounded-2xl bg-surface-tint/10 flex items-center justify-center mb-6 border border-primary/10"><span class="material-symbols-outlined text-surface-tint text-[24px]">dashboard</span></div><h3 class="font-headline-md text-headline-md text-on-surface mb-2">Placement Dashboard</h3><p class="font-body-md text-body-md text-on-surface-variant">Track your readiness trajectory over time. Share your verified AI-scored profile directly with university coordinators.</p></div><div class="flex-1 w-full bg-surface-container/50 rounded-2xl p-4 border border-outline-variant/30 aspect-video flex items-center justify-center relative overflow-hidden"><div class="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5"></div><span class="material-symbols-outlined text-[64px] text-outline-variant/40">monitoring</span></div></div>
+</div>
+</div>
+</section>
+
+<!-- For Coordinators Section (without early access block) -->
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-white/30 backdrop-blur-sm" id="coordinator-benefits">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-12 reveal-on-scroll">
+<span class="material-symbols-outlined text-5xl text-primary mb-3">groups</span>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-4">Built for Placement Coordinators</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">Track student progress, identify at‑risk students, and prove the value of your placement efforts – all from one dashboard.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8 stagger-children">
+<div class="glass-card rounded-2xl p-6 text-center"><span class="material-symbols-outlined text-4xl text-tertiary">visibility</span><p class="font-label-md text-label-md font-semibold mt-2">Real‑time progress tracking</p><p class="text-sm text-on-surface-variant mt-2">See which students are practicing, their scores, and improvement trends.</p></div>
+<div class="glass-card rounded-2xl p-6 text-center"><span class="material-symbols-outlined text-4xl text-secondary">notifications_active</span><p class="font-label-md text-label-md font-semibold mt-2">At‑risk alerts</p><p class="text-sm text-on-surface-variant mt-2">Get notified when students fall behind or show increased anxiety.</p></div>
+<div class="glass-card rounded-2xl p-6 text-center"><span class="material-symbols-outlined text-4xl text-primary">insights</span><p class="font-label-md text-label-md font-semibold mt-2">Outcome correlation</p><p class="text-sm text-on-surface-variant mt-2">Connect mock scores to real placement results and prove ROI.</p></div>
+</div>
+<!-- Early access block REMOVED entirely -->
+</div>
+</section>
+</main>
+
+<!-- Footer (now fully visible) -->
+<footer class="w-full py-8 bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant/30 shadow-sm mt-8 z-10 relative reveal-on-scroll">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-4">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2"><span class="material-symbols-outlined">rocket_launch</span> Career Pilot</div>
+<div class="flex gap-6 font-label-sm text-label-sm text-on-surface-variant"><a class="hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a><a class="hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a><a class="hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Contact Support</a></div>
+<div class="font-label-sm text-label-sm text-on-surface-variant opacity-80">© 2024 Career Pilot AI. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .stagger-children');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+    revealElements.forEach(el => observer.observe(el));
+    window.addEventListener('load', () => {
+        revealElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                el.classList.add('revealed');
+                observer.unobserve(el);
+            }
+        });
+    });
+</script>
+</body>
+</html>

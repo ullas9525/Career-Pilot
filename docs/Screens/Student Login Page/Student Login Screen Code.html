@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Career Pilot - Authentication</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#dbe1ff",
+                        "on-primary-container": "#f3f3ff",
+                        "surface-container": "#efedef",
+                        "on-tertiary-container": "#d4ffd2",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dbd9dc",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#e3e2e4",
+                        "on-secondary-fixed": "#002020",
+                        "secondary-fixed-dim": "#50dad9",
+                        "surface-container-high": "#e9e8ea",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#69de7c",
+                        "inverse-on-surface": "#f2f0f2",
+                        "primary-container": "#0f62fe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface": "#faf9fb",
+                        "secondary-container": "#6ef3f3",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d8",
+                        "surface-bright": "#faf9fb",
+                        "background": "#faf9fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006a6a",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#0052dd",
+                        "on-primary-fixed": "#00174c",
+                        "tertiary-fixed": "#85fb96",
+                        "outline": "#737687",
+                        "on-secondary-container": "#006e6e",
+                        "on-primary-fixed-variant": "#003da9",
+                        "on-tertiary-fixed": "#002108",
+                        "inverse-surface": "#303032",
+                        "on-background": "#1b1c1d",
+                        "on-surface": "#1b1c1d",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "tertiary": "#006526",
+                        "tertiary-container": "#008133",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "primary": "#004ccd",
+                        "surface-container-low": "#f5f3f5",
+                        "on-tertiary-fixed-variant": "#00531e",
+                        "surface-variant": "#e3e2e4",
+                        "secondary-fixed": "#72f6f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Ambient Mesh Gradient Background */
+        body {
+            background-color: #faf9fb;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(220,100%,94%,1) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, hsla(180,100%,92%,1) 0, transparent 50%),
+                radial-gradient(at 50% 50%, hsla(240,100%,98%,1) 0, transparent 80%);
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphic Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(0, 76, 205, 0.05), inset 0 1px 0 0 rgba(255,255,255,1);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(195, 198, 216, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0, 76, 205, 0.3);
+            box-shadow: 0 0 0 4px rgba(0, 76, 205, 0.1);
+            outline: none;
+        }
+
+        .primary-gradient-btn {
+            background: linear-gradient(135deg, #0052dd 0%, #0f62fe 100%);
+            box-shadow: 0 4px 14px 0 rgba(15, 98, 254, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .primary-gradient-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px 0 rgba(15, 98, 254, 0.35);
+        }
+
+        .glass-ghost-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(195, 198, 216, 0.5);
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+        
+        .glass-ghost-btn:hover {
+            background: rgba(255, 255, 255, 0.8);
+            border-color: rgba(0, 76, 205, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-on-surface antialiased overflow-x-hidden selection:bg-primary-container/20 selection:text-primary">
+<!-- TopNavBar (Transactional/Minimal) -->
+<nav class="w-full top-0 sticky z-50 bg-white/60 dark:bg-black/60 backdrop-blur-[20px] border-b border-white/40 dark:border-white/10 shadow-sm transition-all duration-300 ease-in-out">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-2 cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">Career Pilot</span>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button aria-label="Toggle Dark Mode" class="p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-white/50 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Auth Content -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-gutter relative z-10">
+<!-- Glassmorphic Auth Card -->
+<div class="w-full max-w-[440px] glass-panel rounded-2xl p-6 md:p-8 relative overflow-hidden">
+<!-- Decorative ambient glow inside card -->
+<div class="absolute -top-20 -right-20 w-40 h-40 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Header -->
+<div class="text-center mb-8 relative z-10">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Welcome Back</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Continue your career journey.</p>
+</div>
+<!-- Tabs -->
+<div class="flex p-1 mb-8 bg-surface-container-low/50 rounded-xl backdrop-blur-sm border border-white/40 relative z-10">
+<button class="flex-1 py-2.5 rounded-lg font-label-md text-label-md transition-all duration-200 bg-white text-primary shadow-sm ring-1 ring-black/5" id="tab-login" onclick="switchTab('login')">
+                    Login
+                </button>
+<button class="flex-1 py-2.5 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-primary" id="tab-signup" onclick="switchTab('signup')">
+                    Sign Up
+                </button>
+</div>
+<!-- Login Form -->
+<form class="space-y-5 relative z-10" id="form-login" onsubmit="event.preventDefault();">
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email">
+</div>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center ml-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Password</label>
+<a class="font-label-sm text-label-sm text-primary hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input class="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="••••••••" type="password">
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<button class="w-full primary-gradient-btn text-white font-label-md text-label-md py-3.5 rounded-xl mt-2 flex items-center justify-center gap-2" type="submit">
+                    Sign In
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</form>
+<!-- Sign Up Form (Hidden by default) -->
+<form class="space-y-5 relative z-10 hidden" id="form-signup" onsubmit="event.preventDefault();">
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="name@university.edu" type="email">
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1 block">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+<input class="w-full pl-10 pr-10 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60" placeholder="Create a password" type="password">
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1 block">College Code <span class="text-outline/60 font-normal">(Optional)</span></label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">school</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl glass-input font-body-md text-body-md text-on-surface placeholder:text-outline/60 uppercase" placeholder="e.g. STANFORD-24" type="text">
+</div>
+</div>
+<button class="w-full primary-gradient-btn text-white font-label-md text-label-md py-3.5 rounded-xl mt-2 flex items-center justify-center gap-2" type="submit">
+                    Create Account
+                    <span class="material-symbols-outlined text-[18px]">person_add</span>
+</button>
+</form>
+<!-- Social Login Divider -->
+<div class="relative my-8 z-10">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-outline-variant/30"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-3 bg-surface-container-lowest/80 backdrop-blur-sm text-on-surface-variant font-label-sm text-label-sm rounded-full border border-outline-variant/20">or continue with</span>
+</div>
+</div>
+<!-- Social Login Buttons -->
+<div class="grid grid-cols-2 gap-3 relative z-10">
+<button class="glass-ghost-btn flex items-center justify-center gap-2 py-3 rounded-xl font-label-md text-label-md text-on-surface" type="button">
+<!-- Placeholder for Google Logo -->
+<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Google
+                </button>
+<button class="glass-ghost-btn flex items-center justify-center gap-2 py-3 rounded-xl font-label-md text-label-md text-on-surface" type="button">
+<!-- Placeholder for LinkedIn Logo -->
+<svg class="w-5 h-5" fill="#0A66C2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path>
+</svg>
+                    LinkedIn
+                </button>
+</div>
+</div>
+</main>
+<script>
+        // Simple script to handle tab switching
+        function switchTab(tabId) {
+            const loginForm = document.getElementById('form-login');
+            const signupForm = document.getElementById('form-signup');
+            const loginTab = document.getElementById('tab-login');
+            const signupTab = document.getElementById('tab-signup');
+            const headerTitle = document.querySelector('h1');
+            const headerDesc = document.querySelector('p.text-on-surface-variant');
+
+            // Reset tab styles
+            const inactiveClasses = ['text-on-surface-variant', 'hover:text-primary', 'bg-transparent', 'shadow-none', 'ring-0'];
+            const activeClasses = ['bg-white', 'text-primary', 'shadow-sm', 'ring-1', 'ring-black/5'];
+
+            loginTab.classList.remove(...activeClasses);
+            loginTab.classList.add(...inactiveClasses);
+            signupTab.classList.remove(...activeClasses);
+            signupTab.classList.add(...inactiveClasses);
+
+            if (tabId === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginTab.classList.remove(...inactiveClasses);
+                loginTab.classList.add(...activeClasses);
+                headerTitle.textContent = 'Welcome Back';
+                headerDesc.textContent = 'Continue your career journey.';
+            } else {
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                signupTab.classList.remove(...inactiveClasses);
+                signupTab.classList.add(...activeClasses);
+                headerTitle.textContent = 'Create Account';
+                headerDesc.textContent = 'Start your AI guided interview prep.';
+            }
+        }
+    </script>
+</body></html>

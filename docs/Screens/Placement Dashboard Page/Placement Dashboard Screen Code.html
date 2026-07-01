@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Career Pilot - Placement Coordinator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#004ccd", "secondary": "#006a6a", "tertiary": "#006526",
+          "surface": "#faf9fb", "background": "#faf9fb", "error": "#ba1a1a",
+          "outline-variant": "#c3c6d8", "surface-variant": "#e3e2e4",
+          "on-surface-variant": "#424656", "on-background": "#1b1c1d",
+          "primary-container": "#0f62fe", "secondary-container": "#6ef3f3",
+          "tertiary-container": "#008133", "surface-container-low": "#f5f3f5"
+        },
+        borderRadius: { xl: "0.75rem", "2xl": "1rem", "3xl": "1.5rem" },
+        fontFamily: { "display": ["Plus Jakarta Sans"], "body": ["Inter"] }
+      }
+    }
+  }
+</script>
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(0, 76, 205, 0.05);
+    transition: all 0.2s ease;
+  }
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 40px 0 rgba(0, 76, 205, 0.1);
+  }
+  .alert-pulse {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(186, 26, 26, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+  }
+  .tooltip-hover:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+  .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+</style>
+</head>
+<body class="bg-surface text-on-background font-body antialiased min-h-screen flex">
+
+<!-- Sidebar (unchanged) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low/80 backdrop-blur-[30px] border-r border-white/40 shadow-md p-4 gap-2 z-50">
+  <div class="mb-8 px-2 flex items-center gap-3">
+    <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+      <span class="material-symbols-outlined text-white">rocket_launch</span>
+    </div>
+    <div>
+      <h1 class="font-display text-headline-md font-bold text-primary">Career Pilot</h1>
+      <p class="text-label-sm text-on-surface-variant">AI Interview Engine</p>
+    </div>
+  </div>
+  <div class="flex-1 flex flex-col gap-1">
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-primary-container/20 text-primary" href="#"><span class="material-symbols-outlined">dashboard</span> College Analytics</a>
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-white/40" href="#"><span class="material-symbols-outlined">groups</span> Placement Groups</a>
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-white/40" href="#"><span class="material-symbols-outlined">leaderboard</span> Global Leaderboard</a>
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-white/40" href="#"><span class="material-symbols-outlined">checklist</span> Placement Outcomes</a>
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-white/40" href="#"><span class="material-symbols-outlined">assessment</span> Student Progress</a>
+    <a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-white/40" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-6 md:p-8 w-full max-w-[1600px] mx-auto">
+  <!-- Header -->
+  <header class="flex flex-wrap justify-between items-start md:items-center gap-4 mb-8">
+    <div>
+      <h2 class="text-headline-lg font-display font-bold text-on-background">Placement Coordinator Dashboard</h2>
+      <p class="text-body-md text-on-surface-variant">Monitor student readiness, track outcomes, and act on at‑risk individuals</p>
+    </div>
+    <div class="flex gap-3">
+      <div class="glass-card rounded-lg px-3 py-2 flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">calendar_month</span>
+        <select class="bg-transparent border-none text-label-md focus:ring-0"><option>Fall 2024</option><option>Spring 2024</option></select>
+      </div>
+      <button class="glass-card px-4 py-2 rounded-lg text-primary flex items-center gap-2"><span class="material-symbols-outlined text-sm">download</span> Export</button>
+    </div>
+  </header>
+
+  <!-- Metric Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="glass-card rounded-2xl p-6"><p class="text-label-md text-on-surface-variant">Total Students</p><p class="text-display-lg font-display text-primary">1,240</p></div>
+    <div class="glass-card rounded-2xl p-6"><p class="text-label-md text-on-surface-variant">Avg Readiness Score</p><p class="text-display-lg font-display text-secondary">7.2<span class="text-headline-md text-outline">/10</span></p></div>
+    <div class="glass-card rounded-2xl p-6"><p class="text-label-md text-on-surface-variant">Placement Rate (estimated)</p><p class="text-display-lg font-display text-tertiary">56%</p><p class="text-label-sm text-tertiary">+12% vs non‑users</p></div>
+    <div class="glass-card rounded-2xl p-6"><p class="text-label-md text-on-surface-variant">Inactive >3 days</p><p class="text-display-lg font-display text-error">24</p><p class="text-label-sm text-error">Requires attention</p></div>
+  </div>
+
+  <!-- Batch Reporting Summary -->
+  <div class="glass-card rounded-2xl p-6 mb-8">
+    <h3 class="text-headline-md font-display mb-4">📊 Batch Performance Snapshot</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+      <div class="bg-white/50 rounded-xl p-4"><p class="text-label-md text-on-surface-variant">Students in active prep</p><p class="text-headline-md font-bold text-primary">45</p></div>
+      <div class="bg-white/50 rounded-xl p-4"><p class="text-label-md text-on-surface-variant">Completed 3+ mock interviews</p><p class="text-headline-md font-bold text-secondary">32</p><p class="text-label-sm text-tertiary">71% engagement</p></div>
+      <div class="bg-white/50 rounded-xl p-4"><p class="text-label-md text-on-surface-variant">Confirmed offers (this cohort)</p><p class="text-headline-md font-bold text-tertiary">18</p><p class="text-label-sm text-tertiary">40% offer rate among active</p></div>
+    </div>
+  </div>
+
+  <!-- Student Progress Table (full details) -->
+  <div class="glass-card rounded-2xl p-6 mb-8 overflow-x-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-headline-md font-display">Student Progress & Risk Monitoring</h3>
+      <button class="text-primary text-label-md flex items-center gap-1"><span class="material-symbols-outlined text-sm">filter_alt</span> Filter</button>
+    </div>
+    <table class="w-full text-left border-collapse min-w-[900px]">
+      <thead class="border-b border-outline-variant/30">
+        <tr><th class="py-3 px-2 text-label-sm text-on-surface-variant">Student</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Batch</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Practice Freq (sessions/week)</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Score Progression</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Anxiety Trend</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Last Active</th><th class="py-3 px-2 text-label-sm text-on-surface-variant">Status</th></tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant/20">
+        <tr class="hover:bg-white/30">
+          <td class="py-3 px-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">AP</div><span class="font-medium">Alex Patel</span></div></td>
+          <td class="py-3 px-2">CS 2025</td>
+          <td class="py-3 px-2">3.2</td>
+          <td class="py-3 px-2"><div class="flex items-center gap-1"><span>5.2</span><span class="material-symbols-outlined text-sm text-tertiary">arrow_forward</span><span>6.8</span><span class="material-symbols-outlined text-sm text-tertiary">arrow_forward</span><span>7.1</span></div></td>
+          <td class="py-3 px-2 text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_down</span> 8.1→4.2</td>
+          <td class="py-3 px-2">2 hours ago</td>
+          <td class="py-3 px-2"><span class="px-2 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs">Active</span></td>
+        </tr>
+        <tr class="hover:bg-white/30 bg-error/5">
+          <td class="py-3 px-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-error/20 flex items-center justify-center">MJ</div><span class="font-medium">Maria Juarez</span></div></td>
+          <td class="py-3 px-2">IT 2025</td>
+          <td class="py-3 px-2">0.4</td>
+          <td class="py-3 px-2"><div class="flex items-center gap-1"><span>4.1</span><span class="material-symbols-outlined text-sm text-error">arrow_forward</span><span>3.8</span><span class="material-symbols-outlined text-sm text-error">arrow_forward</span><span>-</span></div></td>
+          <td class="py-3 px-2 text-error flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_up</span> 5.2→7.5</td>
+          <td class="py-3 px-2">8 days ago</td>
+          <td class="py-3 px-2"><span class="px-2 py-1 rounded-full bg-error/20 text-error text-xs flex items-center gap-1 alert-pulse"><span class="material-symbols-outlined text-xs">warning</span> Inactive >3d</span></td>
+        </tr>
+        <tr class="hover:bg-white/30">
+          <td class="py-3 px-2"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">RC</div><span class="font-medium">Rahul Chatterjee</span></div></td>
+          <td class="py-3 px-2">ECE 2025</td>
+          <td class="py-3 px-2">2.8</td>
+          <td class="py-3 px-2"><div class="flex items-center gap-1"><span>6.0</span><span class="material-symbols-outlined text-sm text-tertiary">arrow_forward</span><span>7.4</span><span class="material-symbols-outlined text-sm text-tertiary">arrow_forward</span><span>8.2</span></div></td>
+          <td class="py-3 px-2 text-tertiary flex items-center gap-1"><span class="material-symbols-outlined text-sm">trending_down</span> 7.2→3.9</td>
+          <td class="py-3 px-2">1 day ago</td>
+          <td class="py-3 px-2"><span class="px-2 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs">On track</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="mt-4 text-right text-label-sm text-on-surface-variant">Showing 3 of 142 students | <a href="#" class="text-primary">View all</a></div>
+  </div>
+
+  <!-- Alert Section (students inactive >3 days) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="glass-card rounded-2xl p-6">
+      <h3 class="text-headline-md font-display mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-error">notifications_active</span> Intervention Alerts</h3>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center p-3 bg-error/5 rounded-xl border-l-4 border-error"><div><p class="font-medium">Maria Juarez</p><p class="text-xs text-on-surface-variant">No practice for 8 days · Score dropped 4.1 → 3.8</p></div><button class="text-primary text-label-sm">Message</button></div>
+        <div class="flex justify-between items-center p-3 bg-error/5 rounded-xl border-l-4 border-error"><div><p class="font-medium">John Smith</p><p class="text-xs text-on-surface-variant">Inactive 5 days · Never completed a mock interview</p></div><button class="text-primary text-label-sm">Message</button></div>
+        <div class="flex justify-between items-center p-3 bg-error/5 rounded-xl border-l-4 border-error"><div><p class="font-medium">Lisa Wong</p><p class="text-xs text-on-surface-variant">No progress in 10 days · Anxiety score increased</p></div><button class="text-primary text-label-sm">Message</button></div>
+      </div>
+    </div>
+
+    <!-- Outcome Tracking Snapshot -->
+    <div class="glass-card rounded-2xl p-6">
+      <h3 class="text-headline-md font-display mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-secondary">checklist</span> Recent Placement Outcomes</h3>
+      <div class="space-y-3">
+        <div class="flex justify-between items-center"><div><span class="font-medium">Alex Chen</span><p class="text-xs">Software Engineer @ Google</p></div><span class="px-2 py-1 bg-tertiary/10 text-tertiary rounded-full text-xs">Accepted</span></div>
+        <div class="flex justify-between items-center"><div><span class="font-medium">Sarah Jenkins</span><p class="text-xs">Product Manager @ Deloitte</p></div><span class="px-2 py-1 bg-secondary/10 text-secondary rounded-full text-xs">Pending</span></div>
+        <div class="flex justify-between items-center"><div><span class="font-medium">David Kim</span><p class="text-xs">Data Analyst @ Startup Inc</p></div><span class="px-2 py-1 bg-error/20 text-error rounded-full text-xs">Rejected</span></div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-outline-variant/30 text-center"><a href="#" class="text-primary text-label-sm">View full outcomes report →</a></div>
+    </div>
+  </div>
+
+  <!-- ENHANCED CORRELATION SECTION: Two graphs side by side -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Graph 1: Offer rate by score bracket (bar chart) -->
+    <div class="glass-card rounded-2xl p-6">
+      <h3 class="text-headline-md font-display mb-1">Offer Rate vs. Mock Score</h3>
+      <p class="text-label-sm text-on-surface-variant mb-6">Based on 156 students with complete data</p>
+      <div class="relative h-64 w-full">
+        <svg viewBox="0 0 400 200" class="w-full h-full" preserveAspectRatio="none">
+          <!-- Y axis grid lines -->
+          <line x1="50" y1="20" x2="370" y2="20" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="65" x2="370" y2="65" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="110" x2="370" y2="110" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="155" x2="370" y2="155" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          
+          <!-- Bars (score brackets: 60-70, 70-80, 80-90, 90-100) -->
+          <!-- Bracket 1: 60-70, offer rate ~12% (height ~ 20/180) -->
+          <rect x="70" y="145" width="50" height="15" fill="#004ccd" rx="4" class="hover:opacity-80 transition-all cursor-pointer tooltip-hover">
+            <title>60-70 score: 12% offer rate</title>
+          </rect>
+          <!-- Bracket 2: 70-80, offer rate ~28% -->
+          <rect x="150" y="115" width="50" height="45" fill="#006a6a" rx="4" class="hover:opacity-80 transition-all cursor-pointer">
+            <title>70-80 score: 28% offer rate</title>
+          </rect>
+          <!-- Bracket 3: 80-90, offer rate ~58% -->
+          <rect x="230" y="70" width="50" height="90" fill="#006526" rx="4" class="hover:opacity-80 transition-all cursor-pointer">
+            <title>80-90 score: 58% offer rate</title>
+          </rect>
+          <!-- Bracket 4: 90-100, offer rate ~78% -->
+          <rect x="310" y="35" width="50" height="125" fill="#0f62fe" rx="4" class="hover:opacity-80 transition-all cursor-pointer">
+            <title>90-100 score: 78% offer rate</title>
+          </rect>
+
+          <!-- Labels -->
+          <text x="95" y="170" class="text-[10px] fill-on-surface-variant text-center" text-anchor="middle">60-70</text>
+          <text x="175" y="170" class="text-[10px] fill-on-surface-variant" text-anchor="middle">70-80</text>
+          <text x="255" y="170" class="text-[10px] fill-on-surface-variant" text-anchor="middle">80-90</text>
+          <text x="335" y="170" class="text-[10px] fill-on-surface-variant" text-anchor="middle">90-100</text>
+
+          <!-- Y axis label -->
+          <text x="20" y="100" class="text-[10px] fill-on-surface-variant transform -rotate-90" text-anchor="middle">Offer rate (%)</text>
+        </svg>
+      </div>
+      <div class="mt-4 text-center">
+        <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium">Insight: Students scoring >80 get offers 3.2x more often</span>
+      </div>
+    </div>
+
+    <!-- Graph 2: Score distribution histogram -->
+    <div class="glass-card rounded-2xl p-6">
+      <h3 class="text-headline-md font-display mb-1">Mock Score Distribution</h3>
+      <p class="text-label-sm text-on-surface-variant mb-6">All 156 students – current cohort</p>
+      <div class="relative h-64 w-full">
+        <svg viewBox="0 0 400 200" class="w-full h-full" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <line x1="50" y1="20" x2="370" y2="20" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="65" x2="370" y2="65" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="110" x2="370" y2="110" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+          <line x1="50" y1="155" x2="370" y2="155" stroke="#c3c6d8" stroke-dasharray="2 2" stroke-width="0.5"/>
+
+          <!-- Bars: number of students per score bracket -->
+          <!-- 0-40: 12 students -->
+          <rect x="55" y="145" width="35" height="15" fill="#ba1a1a" rx="3" opacity="0.7">
+            <title>0-40: 12 students</title>
+          </rect>
+          <!-- 40-50: 18 students -->
+          <rect x="105" y="130" width="35" height="30" fill="#e67e22" rx="3" opacity="0.7">
+            <title>40-50: 18 students</title>
+          </rect>
+          <!-- 50-60: 28 students -->
+          <rect x="155" y="105" width="35" height="55" fill="#f1c40f" rx="3" opacity="0.7">
+            <title>50-60: 28 students</title>
+          </rect>
+          <!-- 60-70: 42 students -->
+          <rect x="205" y="70" width="35" height="90" fill="#006a6a" rx="3" opacity="0.7">
+            <title>60-70: 42 students</title>
+          </rect>
+          <!-- 70-80: 35 students -->
+          <rect x="255" y="90" width="35" height="70" fill="#006526" rx="3" opacity="0.7">
+            <title>70-80: 35 students</title>
+          </rect>
+          <!-- 80-90: 18 students -->
+          <rect x="305" y="130" width="35" height="30" fill="#0f62fe" rx="3" opacity="0.7">
+            <title>80-90: 18 students</title>
+          </rect>
+          <!-- 90-100: 3 students -->
+          <rect x="355" y="155" width="35" height="5" fill="#004ccd" rx="3" opacity="0.7">
+            <title>90-100: 3 students</title>
+          </rect>
+
+          <!-- X axis labels -->
+          <text x="70" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">0-40</text>
+          <text x="120" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">40-50</text>
+          <text x="170" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">50-60</text>
+          <text x="220" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">60-70</text>
+          <text x="270" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">70-80</text>
+          <text x="320" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">80-90</text>
+          <text x="370" y="175" class="text-[9px] fill-on-surface-variant" text-anchor="middle">90-100</text>
+
+          <!-- Y axis label -->
+          <text x="25" y="100" class="text-[10px] fill-on-surface-variant transform -rotate-90" text-anchor="middle"># Students</text>
+        </svg>
+      </div>
+      <div class="mt-4 text-center">
+        <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-xs font-medium">Most students (42) scored 60‑70 – high potential to improve</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional correlation note (optional) -->
+  <div class="glass-card rounded-2xl p-4 text-center text-sm text-on-surface-variant">
+    <span class="material-symbols-outlined text-primary align-middle mr-1">insight</span>
+    Correlation coefficient: <strong class="text-primary">r = 0.81</strong> (strong positive relationship between mock score and final offer rate). Encourage students to retake interviews to boost scores.
+  </div>
+</main>
+</body>
+</html>
