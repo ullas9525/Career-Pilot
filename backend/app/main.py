@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
+from app.core.database import Base, engine
+from app.api import auth
 
 app = FastAPI(
     title="Career Pilot API",
@@ -15,6 +17,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(auth.router)
+
+
+@app.on_event("startup")
+def on_startup():
+    if engine:
+        Base.metadata.create_all(bind=engine)
 
 
 @app.get("/health")
