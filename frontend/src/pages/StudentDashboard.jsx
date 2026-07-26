@@ -66,6 +66,15 @@ export default function StudentDashboard() {
           <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] text-on-surface-variant hover:bg-white/40 transition-colors">
             <span className="material-symbols-outlined">psychology</span> Mock Interview
           </a>
+          <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] text-on-surface-variant hover:bg-white/40 transition-colors">
+            <span className="material-symbols-outlined">assignment_turned_in</span> Post-Interview
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] text-on-surface-variant hover:bg-white/40 transition-colors">
+            <span className="material-symbols-outlined">groups</span> My Cohort
+          </a>
+          <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] text-on-surface-variant hover:bg-white/40 transition-colors">
+            <span className="material-symbols-outlined">emoji_events</span> Leaderboard
+          </a>
         </div>
 
         <div className="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant/30">
