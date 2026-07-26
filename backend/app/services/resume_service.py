@@ -45,7 +45,8 @@ ROLE_KEYWORDS = {
 }
 
 RUBRIC_TEMPLATE = """
-You are an expert resume scorer. Score this resume for the target role: {target_role}
+You are an expert, highly critical resume scorer. Grade this resume BRUTALLY. Do not be lenient. Be extremely strict with your scoring and do not hesitate to give a low score if the resume lacks quantifiable metrics, strong keywords, or professional formatting. 
+Score this resume for the target role: {target_role}
 
 Use ONLY this rubric (dimensions and weights are fixed):
 
@@ -136,17 +137,61 @@ Return JSON only (no markdown). The JSON MUST EXACTLY MATCH this schema:
 """
 
 
-def _get_client() -> OpenAI:
-    return OpenAI(
-        api_key=settings.NVIDIA_API_KEY or "sk-placeholder",
-        base_url=settings.NVIDIA_BASE_URL,
-        timeout=15,
-        max_retries=0,
-    )
+def _call_llm_with_fallback(prompt: str) -> str:
+    errors = []
+    
+    # 1. NVIDIA
+    if settings.NVIDIA_API_KEY:
+        try:
+            client = OpenAI(
+                api_key=settings.NVIDIA_API_KEY,
+                base_url=settings.NVIDIA_BASE_URL,
+                timeout=15, max_retries=0
+            )
+            response = client.chat.completions.create(
+                model="deepseek-ai/deepseek-v4-flash",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1, max_tokens=2000
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            errors.append(f"NVIDIA failed: {e}")
 
+    # 2. OpenRouter
+    if settings.OPENROUTER_API_KEY:
+        try:
+            client = OpenAI(
+                api_key=settings.OPENROUTER_API_KEY,
+                base_url="https://openrouter.ai/api/v1",
+                timeout=15, max_retries=0
+            )
+            response = client.chat.completions.create(
+                model="meta-llama/llama-3.1-8b-instruct:free",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1, max_tokens=2000
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            errors.append(f"OpenRouter failed: {e}")
 
-def _get_model() -> str:
-    return "deepseek-ai/deepseek-v4-flash"
+    # 3. Groq
+    if settings.GROQ_API_KEY:
+        try:
+            client = OpenAI(
+                api_key=settings.GROQ_API_KEY,
+                base_url="https://api.groq.com/openai/v1",
+                timeout=15, max_retries=0
+            )
+            response = client.chat.completions.create(
+                model="llama3-70b-8192",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1, max_tokens=2000
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            errors.append(f"Groq failed: {e}")
+
+    raise Exception(f"All LLM providers failed: {'; '.join(errors)}")
 
 
 def _keyword_score(resume_lower: str, keywords: dict) -> dict:
@@ -193,7 +238,7 @@ def _keyword_score(resume_lower: str, keywords: dict) -> dict:
         "core_requirements_satisfied": core_found,
         "core_requirements_total": total_core,
         "evidence": f"Found {core_found} core and {sec_found} secondary keywords.",
-        "explanation": "Extracted locally based on basic keyword matching."
+        "explanation": "Add the missing skills listed below to your resume to increase your keyword match rate." if kw_score < 25 else "Great job! All required keywords are matched."
     }
 
 
@@ -249,27 +294,31 @@ def _local_analysis(resume_text: str, target_role: str, graduation_year: int) ->
         "experience_context": f"Graduation year {graduation_year}.",
         "quantified_impact": {
             "score": impact_score, "max_score": 30, "points_lost": 30 - impact_score,
-            "evidence": "Local analysis.", "explanation": "Counted numbers."
+            "evidence": f"Found {num_count} numbers/metrics in the resume.", 
+            "explanation": "Add more quantified outcomes (e.g., %, $, time saved) to your bullet points to maximize impact." if impact_score < 30 else "Great job including numbers to quantify your impact!"
         },
         "keyword_coverage": kw_result,
         "project_quality": {
             "score": quality_score, "max_score": 20, "points_lost": 20 - quality_score,
-            "evidence": "Local analysis.", "explanation": "Line length heuristic."
+            "evidence": "Analyzed bullet point length and detail.", 
+            "explanation": "Ensure every project bullet point clearly explains the problem, your action, and the result." if quality_score < 20 else "Bullet points are detailed and structured well."
         },
         "formatting": {
             "score": formatting_score, "max_score": 15, "points_lost": 15 - formatting_score,
-            "evidence": "Local analysis.", "explanation": "Section headers."
+            "evidence": f"Found {sections_present}/5 key sections (Summary, Experience, Education, Projects, Skills).", 
+            "explanation": "Include clear headers for all standard resume sections to ensure ATS readability." if formatting_score < 15 else "Excellent section structure and formatting."
         },
         "summary_positioning": {
             "score": positioning_score, "max_score": 10, "points_lost": 10 - positioning_score,
-            "evidence": "Local analysis.", "explanation": "Summary check."
+            "evidence": "Summary section detected." if has_summary else "No summary section detected.", 
+            "explanation": "Tailor your professional summary specifically to the target role to score maximum points." if positioning_score < 10 else "Strong, focused summary section."
         },
         "top_actions": top_actions
     }
 
 
 def analyze_resume(resume_text: str, target_role: str, graduation_year: int = None) -> dict:
-    if not settings.NVIDIA_API_KEY:
+    if not (settings.NVIDIA_API_KEY or settings.OPENROUTER_API_KEY or settings.GROQ_API_KEY):
         return _local_analysis(resume_text, target_role, graduation_year)
 
     keywords = ROLE_KEYWORDS.get(target_role, ROLE_KEYWORDS["fullstack-engineer"])
@@ -290,15 +339,15 @@ def analyze_resume(resume_text: str, target_role: str, graduation_year: int = No
     )
 
     try:
-        client = _get_client()
-        response = client.chat.completions.create(
-            model=_get_model(),
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1,
-            max_tokens=2000,
-            response_format={"type": "json_object"},
-        )
-        result = json.loads(response.choices[0].message.content)
+        content = _call_llm_with_fallback(prompt)
+        
+        if content.startswith("```json"):
+            content = content[7:]
+        if content.startswith("```"):
+            content = content[3:]
+        if content.endswith("```"):
+            content = content[:-3]
+        result = json.loads(content.strip())
 
         # Enforce sum mathematically
         total = (
@@ -313,4 +362,7 @@ def analyze_resume(resume_text: str, target_role: str, graduation_year: int = No
         # Ensure the correct structure is returned even if the LLM hallucinated
         return result
     except Exception as e:
+        import traceback
+        with open("llm_error.txt", "w") as f:
+            f.write(traceback.format_exc())
         return _local_analysis(resume_text, target_role, graduation_year)

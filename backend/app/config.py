@@ -12,6 +12,7 @@ class Settings:
 
     NVIDIA_API_KEY: str = os.getenv("NVIDIA_API_KEY", "")
     NVIDIA_BASE_URL: str = os.getenv("NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1")
+    OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
     DEEPGRAM_API_KEY: str = os.getenv("DEEPGRAM_API_KEY", "")
     EDGE_TTS_DEFAULT_VOICE: str = "en-US-JennyNeural"
