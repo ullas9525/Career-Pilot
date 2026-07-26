@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.core.database import Base, engine
-from app.api import auth
+from app.api import auth, users
 
 app = FastAPI(
     title="Career Pilot API",
@@ -19,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+app.include_router(users.router)
 
 
 @app.on_event("startup")

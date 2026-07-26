@@ -23,7 +23,3 @@ class AuthResponse(BaseModel):
 
 class ErrorResponse(BaseModel):
     detail: str
-
-
-class GoogleAuthRequest(BaseModel):
-    token: str

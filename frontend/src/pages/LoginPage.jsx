@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login, signup, googleAuth } from '../api/endpoints'
+import { login, signup, getMe } from '../api/endpoints'
 import { setToken } from '../api/client'
 
 export default function LoginPage() {
@@ -8,46 +8,19 @@ export default function LoginPage() {
   const [tab, setTab] = useState('login')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const googleBtnRef = useRef(null)
 
-  async function handleGoogleCredential(response) {
-    setLoading(true)
-    setError('')
+  async function navigateAfterLogin() {
     try {
-      const { data } = await googleAuth(response.credential)
-      setToken(data.access_token)
+      const { data } = await getMe()
+      if (data.profile_completed) {
+        navigate('/dashboard')
+      } else {
+        navigate('/profile/complete', { state: { email: data.email } })
+      }
+    } catch {
       navigate('/dashboard')
-    } catch (err) {
-      setError('Google sign-in failed')
-    } finally {
-      setLoading(false)
     }
   }
-
-  useEffect(() => {
-    const cid = import.meta.env.VITE_GOOGLE_CLIENT_ID
-    if (!cid || !googleBtnRef.current) return
-
-    const initGoogle = () => {
-      if (window.google?.accounts) {
-        window.google.accounts.id.initialize({
-          client_id: cid,
-          callback: handleGoogleCredential,
-        })
-        window.google.accounts.id.renderButton(googleBtnRef.current, {
-          type: 'standard',
-          shape: 'pill',
-          theme: 'outline',
-          text: 'signin_with',
-          size: 'large',
-          width: '100%',
-        })
-      } else {
-        setTimeout(initGoogle, 300)
-      }
-    }
-    initGoogle()
-  }, [])
 
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
@@ -63,7 +36,7 @@ export default function LoginPage() {
     try {
       const { data } = await login(loginEmail, loginPassword)
       setToken(data.access_token)
-      navigate('/dashboard')
+      await navigateAfterLogin()
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed')
     } finally {
@@ -78,7 +51,12 @@ export default function LoginPage() {
     try {
       const { data } = await signup(signupEmail, signupPassword)
       setToken(data.access_token)
-      navigate('/dashboard')
+      const { data: profile } = await getMe()
+      if (profile.profile_completed) {
+        navigate('/dashboard')
+      } else {
+        navigate('/profile/complete', { state: { email: profile.email } })
+      }
     } catch (err) {
       setError(err.response?.data?.detail || 'Signup failed')
     } finally {
@@ -342,31 +320,6 @@ export default function LoginPage() {
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-outline-variant/30"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-3 text-on-surface-variant text-[12px] font-semibold rounded-full border border-outline-variant/20"
-                style={{ background: 'rgba(255,255,255,0.8)' }}
-              >
-                or continue with
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 relative z-10">
-            <div ref={googleBtnRef} className="w-full flex justify-center"></div>
-            <button
-              type="button"
-              className="flex items-center justify-center gap-2 py-3 rounded-xl text-[14px] text-on-surface"
-              style={{
-                background: 'rgba(255,255,255,0.4)',
-                border: '1px solid rgba(195,198,216,0.5)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
-              <svg className="w-5 h-5" fill="#0A66C2" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-              LinkedIn
-            </button>
           </div>
         </div>
       </main>
