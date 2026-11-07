@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Placement Outcome Tracking - Career Pilot</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#004ccd", "secondary": "#006a6a", "tertiary": "#006526",
+            "surface": "#faf9fb", "background": "#faf9fb", "error": "#ba1a1a",
+            "outline-variant": "#c3c6d8", "surface-variant": "#e3e2e4",
+            "on-surface-variant": "#424656", "on-background": "#1b1c1d",
+            "primary-container": "#0f62fe", "secondary-container": "#6ef3f3",
+            "tertiary-container": "#008133", "surface-container-low": "#f5f3f5",
+            "primary-fixed": "#dbe1ff", "on-primary-container": "#f3f3ff",
+            "surface-container": "#efedef", "surface-dim": "#dbd9dc",
+            "inverse-primary": "#b4c5ff", "surface-container-highest": "#e3e2e4",
+            "on-secondary-fixed": "#002020", "secondary-fixed-dim": "#50dad9",
+            "surface-container-high": "#e9e8ea", "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#69de7c", "inverse-on-surface": "#f2f0f2",
+            "primary-fixed-dim": "#b4c5ff", "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff", "on-error": "#ffffff", "error-container": "#ffdad6",
+            "on-primary-fixed": "#00174c", "on-error-container": "#93000a",
+            "outline": "#737687", "on-secondary-container": "#006e6e",
+            "on-primary-fixed-variant": "#003da9", "on-tertiary-fixed": "#002108",
+            "inverse-surface": "#303032", "tertiary-container": "#008133",
+            "tertiary-fixed": "#85fb96", "secondary-fixed": "#72f6f6"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          spacing: { unit: "8px", "container-max": "1280px", "margin-desktop": "64px", gutter: "24px", "margin-mobile": "20px" },
+          fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Plus Jakarta Sans"], "label-sm": ["Inter"], "display-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "display-lg-mobile": ["Plus Jakarta Sans"] },
+          fontSize: {
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "500" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+            "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }],
+            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at 0% 0%, #f3f3ff 0%, #faf9fb 100%);
+      min-height: 100vh;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 32px 0 rgba(15, 98, 254, 0.05);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .tab-active {
+      border-bottom: 2px solid #004ccd;
+      color: #004ccd;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 76, 205, 0.2);
+      border-radius: 10px;
+    }
+
+    select {
+      background-image: none;
+      /* remove default arrow, we use custom icon */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+  </style>
+</head>
+
+<body class="font-body-md text-on-background antialiased">
+
+  <!-- TopNavBar -->
+  <header class="w-full top-0 sticky z-50 bg-white/60 backdrop-blur-[20px] border-b border-white/40 shadow-sm">
+    <div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto">
+      <div class="font-headline-md text-headline-md font-bold text-primary">Career Pilot</div>
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Practice</a>
+        <a class="text-on-surface-variant font-body-md hover:text-primary transition-colors" href="#">Feedback</a>
+        <a class="text-primary font-semibold border-b-2 border-primary font-body-md" href="#">Placements</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button
+          class="material-symbols-outlined text-on-surface-variant active:scale-95 transition-transform">notifications</button>
+        <button
+          class="material-symbols-outlined text-on-surface-variant active:scale-95 transition-transform">dark_mode</button>
+        <div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+          <img alt="User Avatar"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcWmZHiSjG9Xy9AN-TK3F9-1opYvpF1uQFBy1AGOSN7sz-nwI9y4iaCXTyhsWXAGBmRnrRZ0TVSjV4quEWBVF-H5piB30t9GPfMd4GNkQGSxmY7b3IjLLjOuSjRvVsFBHLgMFoxgKFSFDFTG5199cYE5Jpd2UqkKAT1ZNjS3XpOceQrpov5yFebPag8q_IpW-QqwfUTMtnUHmOFFduxavP3F0e6JhEqj225yd6syBPiq7IbuaGvGLmlAIgtscCki-U4TB7s7i3k1U">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex max-w-container-max mx-auto relative">
+    <!-- SideNavBar -->
+    <aside
+      class="hidden md:flex flex-col h-[calc(100vh-72px)] w-64 sticky top-[72px] p-4 gap-2 bg-surface-container-low/80 backdrop-blur-[30px] border-r border-white/40">
+      <div class="mb-6 px-2">
+        <div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mb-2">Placement Hub</div>
+        <div class="flex flex-col gap-1">
+          <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+            href="#"><span class="material-symbols-outlined">dashboard</span><span class="font-label-md">College
+              Analytics</span></a>
+          <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+            href="#"><span class="material-symbols-outlined">groups</span><span class="font-label-md">Placement
+              Groups</span></a>
+          <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+            href="#"><span class="material-symbols-outlined">leaderboard</span><span class="font-label-md">Global
+              Leaderboard</span></a>
+          <a class="flex items-center gap-3 px-3 py-2 bg-primary-container/20 text-primary rounded-xl font-semibold"
+            href="#"><span class="material-symbols-outlined">checklist</span><span class="font-label-md">Placement
+              Outcomes</span></a>
+          <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+            href="#"><span class="material-symbols-outlined">assessment</span><span class="font-label-md">Student
+              Progress</span></a>
+          <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+            href="#"><span class="material-symbols-outlined">settings</span><span
+              class="font-label-md">Settings</span></a>
+        </div>
+      </div>
+      <button
+        class="mt-auto bg-primary text-white py-3 px-4 rounded-xl font-semibold shadow-lg shadow-primary/20 flex items-center justify-center gap-2 active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[20px]">bolt</span> Start Mock Session
+      </button>
+      <div class="mt-4 pt-4 border-t border-outline-variant/30 flex flex-col gap-1">
+        <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+          href="#"><span class="material-symbols-outlined">settings</span><span
+            class="font-label-md">Settings</span></a>
+        <a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-white/40 rounded-xl transition-all"
+          href="#"><span class="material-symbols-outlined">help</span><span class="font-label-md">Support</span></a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 px-4 md:px-margin-desktop py-8">
+      <div class="max-w-container-max mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-2">
+            <h1 class="font-headline-lg text-headline-lg text-on-surface">Placement Outcome Tracking</h1>
+            <div
+              class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary-container/30 border border-secondary/20">
+              <span class="material-symbols-outlined text-secondary text-sm"
+                style="font-variation-settings: 'FILL' 1;">verified_user</span>
+              <span class="font-label-sm text-label-sm text-on-secondary-container">100% voluntary · No personal data
+                shared</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">Optional reporting – helps us improve
+            interview prep for future students through real-world insights.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-8">
+          <div class="flex gap-8 border-b border-white/20">
+            <button class="px-4 py-3 font-label-md text-label-md transition-all tab-active flex items-center gap-2"
+              id="tab-report" onclick="switchTab('report')">
+              <span class="material-symbols-outlined text-xl">edit_document</span> Report Outcome
+            </button>
+            <button
+              class="px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all flex items-center gap-2"
+              id="tab-insights" onclick="switchTab('insights')">
+              <span class="material-symbols-outlined text-xl">bar_chart_4_bars</span> Aggregated Insights
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab: Report Outcome -->
+        <div id="content-report">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-8">
+              <div class="glass-card rounded-2xl p-8">
+                <form class="space-y-6" id="outcome-form">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                      <label class="font-label-md text-label-md text-on-surface-variant">Student Identifier</label>
+                      <div class="relative">
+                        <select
+                          class="w-full bg-white/40 border border-white/40 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all appearance-none">
+                          <option>Select student...</option>
+                          <option>Alex Rivera</option>
+                          <option>Jamie Chen</option>
+                          <option>Sarah Johnson</option>
+                        </select>
+                        <span
+                          class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none z-10"
+                          style="font-size: 20px;">arrow_drop_down</span>
+                      </div>
+                    </div>
+                    <div class="space-y-2">
+                      <label class="font-label-md text-label-md text-on-surface-variant">Outcome Status</label>
+                      <div class="flex flex-wrap gap-3">
+                        <label class="cursor-pointer group"><input class="hidden peer" name="status"
+                            onchange="toggleCelebration(true)" type="radio" value="offer">
+                          <div
+                            class="px-4 py-2 rounded-full border border-white/40 bg-white/20 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-sm text-label-sm">
+                            Got an offer</div>
+                        </label>
+                        <label class="cursor-pointer group"><input class="hidden peer" name="status"
+                            onchange="toggleCelebration(false)" type="radio" value="process">
+                          <div
+                            class="px-4 py-2 rounded-full border border-white/40 bg-white/20 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-sm text-label-sm">
+                            Still in process</div>
+                        </label>
+                        <label class="cursor-pointer group"><input class="hidden peer" name="status"
+                            onchange="toggleCelebration(false)" type="radio" value="rejected">
+                          <div
+                            class="px-4 py-2 rounded-full border border-white/40 bg-white/20 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-sm text-label-sm">
+                            Rejected</div>
+                        </label>
+                        <label class="cursor-pointer group"><input class="hidden peer" name="status"
+                            onchange="toggleCelebration(false)" type="radio" value="waiting">
+                          <div
+                            class="px-4 py-2 rounded-full border border-white/40 bg-white/20 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all font-label-sm text-label-sm">
+                            Waiting</div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2"><label class="font-label-md text-label-md text-on-surface-variant">Company
+                        Name</label><input
+                        class="w-full bg-white/40 border border-white/40 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                        placeholder="e.g. Google, Stripe" type="text"></div>
+                    <div class="space-y-2"><label class="font-label-md text-label-md text-on-surface-variant">Job
+                        Role</label><input
+                        class="w-full bg-white/40 border border-white/40 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                        placeholder="e.g. Senior Product Designer" type="text"></div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2"><label class="font-label-md text-label-md text-on-surface-variant">Date of
+                        Outcome</label><input
+                        class="w-full bg-white/40 border border-white/40 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                        type="date"></div>
+                  </div>
+                  <div class="space-y-2"><label class="font-label-md text-label-md text-on-surface-variant">Additional
+                      Notes (Optional)</label><textarea
+                      class="w-full bg-white/40 border border-white/40 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                      placeholder="Any specific feedback or learnings from the process?" rows="3"></textarea></div>
+                  <div class="flex justify-end pt-4">
+                    <button
+                      class="px-8 py-3 rounded-xl border-2 border-primary text-primary font-headline-md text-headline-md hover:bg-primary/5 active:scale-95 transition-all"
+                      onclick="simulateSubmit()" type="button">Save Outcome (Optional)</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="lg:col-span-4 space-y-6">
+              <!-- Celebration Card (hidden initially) -->
+              <div class="hidden transform transition-all duration-500 scale-95 opacity-0" id="celebration-card">
+                <div
+                  class="glass-card rounded-2xl p-8 border-tertiary-container/30 bg-tertiary-container/5 relative overflow-hidden">
+                  <div class="relative z-10 text-center">
+                    <div
+                      class="w-16 h-16 bg-tertiary-container rounded-full flex items-center justify-center mx-auto mb-4 text-white animate-bounce">
+                      <span class="material-symbols-outlined text-3xl"
+                        style="font-variation-settings: 'FILL' 1;">celebration</span></div>
+                    <h3 class="font-headline-md text-headline-md text-tertiary mb-2">Huge Congratulations!</h3>
+                    <p class="text-on-surface-variant font-body-md">Your hard work has officially paid off. Reporting
+                      this helps the entire community learn from your success.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Side Tip -->
+              <div class="glass-card rounded-2xl p-6 border-primary/20 bg-primary/5">
+                <div class="flex gap-4"><span class="material-symbols-outlined text-primary"
+                    style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                  <div>
+                    <h4 class="font-label-md text-label-md text-primary mb-1">Why report?</h4>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">By sharing your outcome, you help us map
+                      which companies are currently hiring and what the typical interview pipeline looks like for your
+                      cohort.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Aggregated Insights (hidden by default, empty state) -->
+        <div id="content-insights" class="hidden">
+          <div class="glass-card rounded-2xl p-12 text-center">
+            <span class="material-symbols-outlined text-5xl text-outline-variant mb-3">bar_chart</span>
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-2">No insights yet</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto">Once outcomes are reported,
+              you'll see aggregated, anonymised patterns about mock score vs. offer rate.</p>
+          </div>
+        </div>
+
+        <!-- Coordinator Section: Track outcomes for your cohort (empty state) -->
+        <section class="mt-12 glass-card rounded-2xl overflow-hidden">
+          <div class="p-6 border-b border-outline-variant/30 flex items-center justify-between">
+            <h2 class="font-headline-md text-headline-md text-on-surface">Track outcomes for your cohort</h2>
+            <button
+              class="flex items-center gap-2 text-primary font-label-md hover:underline opacity-50 cursor-not-allowed"
+              disabled><span class="material-symbols-outlined text-lg">download</span> Export CSV</button>
+          </div>
+          <div class="p-12 text-center">
+            <span class="material-symbols-outlined text-5xl text-outline-variant mb-3">person_search</span>
+            <p class="font-body-md text-body-md text-on-surface-variant">No outcomes recorded yet</p>
+            <p class="font-label-sm text-label-sm text-outline mt-1">Add outcomes using the form above – they will
+              appear here.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-8 bg-surface-container-lowest border-t border-outline-variant/30 mt-auto">
+    <div
+      class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-4">
+      <div class="font-headline-md text-headline-md font-bold text-primary">Career Pilot</div>
+      <div class="flex gap-8 text-on-surface-variant font-label-sm">
+        <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+        <a class="hover:text-primary transition-colors" href="#">Contact Support</a>
+      </div>
+      <p class="font-label-sm text-on-surface-variant opacity-80">© 2024 Career Pilot AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      const reportBtn = document.getElementById('tab-report');
+      const insightsBtn = document.getElementById('tab-insights');
+      const reportContent = document.getElementById('content-report');
+      const insightsContent = document.getElementById('content-insights');
+
+      if (tab === 'report') {
+        reportBtn.classList.add('tab-active');
+        reportBtn.classList.remove('text-on-surface-variant');
+        insightsBtn.classList.remove('tab-active');
+        insightsBtn.classList.add('text-on-surface-variant');
+        reportContent.classList.remove('hidden');
+        insightsContent.classList.add('hidden');
+      } else {
+        insightsBtn.classList.add('tab-active');
+        insightsBtn.classList.remove('text-on-surface-variant');
+        reportBtn.classList.remove('tab-active');
+        reportBtn.classList.add('text-on-surface-variant');
+        insightsContent.classList.remove('hidden');
+        reportContent.classList.add('hidden');
+      }
+    }
+
+    function toggleCelebration(show) {
+      const card = document.getElementById('celebration-card');
+      if (show) {
+        card.classList.remove('hidden');
+        setTimeout(() => {
+          card.classList.remove('scale-95', 'opacity-0');
+          card.classList.add('scale-100', 'opacity-100');
+        }, 50);
+      } else {
+        card.classList.add('scale-95', 'opacity-0');
+        card.classList.remove('scale-100', 'opacity-100');
+        setTimeout(() => card.classList.add('hidden'), 500);
+      }
+    }
+
+    function simulateSubmit() {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Processing...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved Successfully';
+        btn.classList.add('bg-tertiary/10', 'text-tertiary', 'border-tertiary/20');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('bg-tertiary/10', 'text-tertiary', 'border-tertiary/20');
+          btn.disabled = false;
+          document.getElementById('outcome-form').reset();
+          toggleCelebration(false);
+        }, 3000);
+      }, 1500);
+    }
+  </script>
+</body>
+
+</html>

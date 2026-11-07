@@ -1,0 +1,36 @@
+CareerPilot MVP (6 weeks, 1-2 engineers, $0 runway cost)
+
+1. BACKEND (Node.js + PostgreSQL)
+   ├─ Auth: Email/password only (no OAuth)
+   ├─ Interview sessions: 
+   │  ├─ POST /interviews (start) → creates session
+   │  ├─ POST /interviews/:id/answer → stores response, triggers next Q
+   │  └─ GET /interviews/:id → returns final report
+   ├─ Questions: Pre-built bank, no dynamic generation yet
+   ├─ Scoring: Hardcoded rubric (40% relevance, 30% clarity, 20% depth, 10% structure)
+   └─ Analytics: Simple aggregation (avg score, question performance)
+
+2. FRONTEND (React)
+   ├─ Signup → basic form
+   ├─ Interview view → display Q, record answer (text or optional voice)
+   ├─ Timer → 3 min per question, visual countdown
+   ├─ Report → score breakdown + raw feedback (no AI polish)
+   └─ History → list past interviews (searchable by job title)
+
+3. AI SERVICE (Claude API via Anthropic SDK)
+   ├─ Input: [Job Description, Question, Student Answer, Rubric]
+   ├─ Output: Score (0-10) + brief feedback (why they got X points)
+   ├─ Cost: ~$0.02 per evaluation
+   └─ Fallback: If API fails, return error (don't fake scores)
+
+4. DATA STORAGE
+   ├─ users (id, email, password_hash, created_at)
+   ├─ interviews (id, user_id, job_title, questions_attempted, final_score)
+   ├─ answers (id, interview_id, question_id, text, score, feedback)
+   └─ NO resume uploads, NO LinkedIn/GitHub scraping, NO "AI audit"
+
+5. LAUNCH METRICS (Not vanity metrics)
+   ├─ User retention (% who do 2+ interviews)
+   ├─ Question difficulty (which Qs get low scores?)
+   ├─ Feedback usefulness (do students say it's actionable?)
+   └─ DO NOT measure: "average score" (it's meaningless)

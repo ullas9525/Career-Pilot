@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Career Pilot - Coordinator Groups</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+                    "on-tertiary-fixed": "#002108",
+                    "tertiary": "#006526",
+                    "on-primary-fixed-variant": "#003da9",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#6ef3f3",
+                    "on-background": "#1b1c1d",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e3e2e4",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "tertiary-fixed-dim": "#69de7c",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#f3f3ff",
+                    "surface-tint": "#0052dd",
+                    "surface-container-low": "#f5f3f5",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "inverse-on-surface": "#f2f0f2",
+                    "surface-bright": "#faf9fb",
+                    "secondary-fixed-dim": "#50dad9",
+                    "surface": "#faf9fb",
+                    "on-tertiary-container": "#d4ffd2",
+                    "secondary-fixed": "#72f6f6",
+                    "surface-container": "#efedef",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#c3c6d8",
+                    "outline": "#737687",
+                    "on-secondary-container": "#006e6e",
+                    "surface-variant": "#e3e2e4",
+                    "on-surface-variant": "#424656",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006a6a",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#008133",
+                    "surface-container-high": "#e9e8ea",
+                    "primary-container": "#0f62fe",
+                    "on-tertiary-fixed-variant": "#00531e",
+                    "on-secondary-fixed": "#002020",
+                    "primary-fixed": "#dbe1ff",
+                    "on-primary-fixed": "#00174c",
+                    "on-surface": "#1b1c1d",
+                    "background": "#faf9fb",
+                    "inverse-surface": "#303032",
+                    "surface-dim": "#dbd9dc",
+                    "primary": "#004ccd",
+                    "tertiary-fixed": "#85fb96",
+                    "primary-fixed-dim": "#b4c5ff"
+            },
+            borderRadius: {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            spacing: {
+                    "margin-desktop": "64px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "container-max": "1280px"
+            },
+            fontFamily: {
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["Inter"]
+            },
+            fontSize: {
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                    "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 6px -1px rgba(0, 76, 205, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .glass-panel {
+            background: rgba(250, 249, 251, 0.85);
+            backdrop-filter: blur(30px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #004ccd 0%, #006a6a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 15px rgba(0, 106, 106, 0.3);
+            border-color: rgba(0, 106, 106, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen font-body-md overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Ambient Background Elements -->
+<div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-fixed/30 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary-fixed/20 rounded-full blur-[120px]"></div>
+</div>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low/80 backdrop-blur-[30px] border-r border-white/40 shadow-md p-4 gap-2 z-40">
+<div class="mb-8 px-2 mt-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight">Career Pilot</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">AI Interview Engine</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md text-on-surface-variant hover:bg-white/40 rounded-xl transition-colors duration-200 group" href="#"><span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>College Analytics</a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md bg-primary-container/20 text-primary rounded-xl transition-colors duration-200" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>Placement Groups</a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md text-on-surface-variant hover:bg-white/40 rounded-xl transition-colors duration-200 group" href="#"><span class="material-symbols-outlined group-hover:text-primary transition-colors">leaderboard</span>Global Leaderboard</a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md text-on-surface-variant hover:bg-white/40 rounded-xl transition-colors duration-200 group" href="#"><span class="material-symbols-outlined group-hover:text-primary transition-colors">checklist</span>Placement Outcomes</a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md text-on-surface-variant hover:bg-white/40 rounded-xl transition-colors duration-200 group" href="#"><span class="material-symbols-outlined group-hover:text-primary transition-colors">assessment</span>Student Progress</a>
+<a class="flex items-center gap-3 px-3 py-2.5 font-label-md text-label-md text-on-surface-variant hover:bg-white/40 rounded-xl transition-colors duration-200 group" href="#"><span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>Settings</a>
+</div>
+<div class="mt-auto flex flex-col gap-2"></div>
+</nav>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen flex flex-col">
+<!-- Mobile Top Nav Bar -->
+<header class="md:hidden w-full top-0 sticky bg-white/60 backdrop-blur-[20px] z-50 shadow-sm border-b border-white/40 px-margin-mobile py-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[16px]" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-primary">Career Pilot</span>
+</div>
+<button class="text-on-surface-variant"><span class="material-symbols-outlined text-2xl">menu</span></button>
+</header>
+<div class="flex-1 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Groups Section -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Placement Groups</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage cohorts and track batch readiness.</p>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<div class="relative flex-1 sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-white/50 border border-outline-variant/50 rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary/50 backdrop-blur-sm transition-all placeholder:text-outline" placeholder="Search groups..." type="text">
+</div>
+<button class="flex-shrink-0 bg-secondary hover:bg-on-secondary-container text-white px-4 py-2.5 rounded-xl font-label-md text-label-md transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+<span class="hidden sm:inline">Create Group</span>
+</button>
+</div>
+</div>
+<!-- Groups Grid - Empty State -->
+<div class="glass-card rounded-2xl p-8 text-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant mb-3">groups</span>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">No groups created yet</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md mx-auto">Click "Create Group" to start organizing students into cohorts, assign mock interview tracks, and monitor batch‑wise progress.</p>
+</div>
+</div>
+<!-- Right Panel: Global Leaderboard - Empty State -->
+<div class="lg:col-span-4 mt-8 lg:mt-0">
+<div class="glass-card rounded-3xl p-6 h-full flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 rounded-lg bg-tertiary-container/20 text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<h3 class="font-headline-md text-[20px] text-on-surface">Global Leaderboard</h3>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center py-8 text-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant mb-3">leaderboard</span>
+<p class="font-body-md text-body-md text-on-surface-variant">No leaderboard data yet</p>
+<p class="font-label-sm text-label-sm text-outline mt-1">Once students complete mock interviews and join groups, rankings will appear here.</p>
+</div>
+<button class="mt-4 w-full py-2 text-center font-label-sm text-label-sm text-secondary hover:text-on-secondary-container transition-colors opacity-50 cursor-not-allowed" disabled>View Full Leaderboard</button>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>

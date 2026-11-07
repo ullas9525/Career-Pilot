@@ -1,0 +1,62 @@
+CRITICAL:
+
+Placement Department Integration - This is your real business model
+
+B2B (colleges) > B2C (individual students)
+One college = 500+ students at once
+Placement data = validation of your product
+Revenue: $50k+/year per college
+
+
+Post-Interview Review - Closes the feedback loop
+
+Without outcome data, your rubric is just guessing
+This is how you prove: "Students who score 8+ actually get jobs"
+Mandatory for credibility with colleges
+
+
+Role-Specific Rubrics - Shows you understand hiring
+
+PM and engineer are different
+Wrong rubric = wrong incentives
+Placement teams: "They actually get what we hire for"
+
+
+Outcome Tracking - Your only real metric
+
+60% of students practice 3+ times (nice but doesn't matter)
+42% of students who score 8+ get jobs (actually matters)
+Colleges care about: "Did this help with placement?"
+
+
+
+IMPORTANT (Build Next):
+
+Anxiety Management Module - Non-obvious but powerful
+
+Differentiator (others don't have this)
+Measurable: "Anxiety reduced from 8.1 → 4.3"
+Colleges will pay extra for mental health support
+
+
+Progress Commitment System - Drives engagement
+
+"I want to score 7+ before my Amazon interview"
+Tracks: Progress toward goal, days left, practice needed
+Why: Students actually come back
+
+
+Improvement Plans - Structure > Vague Feedback
+
+Instead of: "Improve communication"
+Provide: "14-day plan, do X by day 3, Y by day 7, Z by day 14"
+Results: 70% of students who follow improve >1 point
+
+
+
+NICE-TO-HAVE (Build Later):
+
+Leaderboards (ethical, cohort-based)
+Recruiter feedback loop (validates scoring)
+Multi-language support
+Video analysis (expensive, low ROI)

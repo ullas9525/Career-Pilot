@@ -1,0 +1,20 @@
+Week 1:
+├─ Define scoring rubric (written document)
+├─ Build scoring engine (Gemini API with validation)
+└─ Database schema (transcripts, scores, feedback)
+
+Week 2:
+├─ Recruit 5 expert reviewers
+├─ Have them validate rubric (blind test on 3 interviews)
+└─ Refine rubric based on feedback
+
+Week 3:
+├─ Build audio → text pipeline (Groq)
+├─ Implement hallucination detection
+└─ Build confidence gate (score only if conf > 0.75)
+
+Week 4:
+├─ Text-to-speech feedback (Deepgram)
+├─ Delete media automation (24h cleanup job)
+├─ Launch MVP (closed beta, 50 students)
+└─ Start tracking outcomes (spreadsheet is fine)
