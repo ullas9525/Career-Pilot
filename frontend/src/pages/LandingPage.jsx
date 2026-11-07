@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
@@ -38,6 +39,7 @@ function useScrollReveal() {
 }
 
 export default function LandingPage() {
+  const navigate = useNavigate()
   useScrollReveal()
 
   return (
@@ -65,11 +67,17 @@ export default function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4 animate-fade-up" style={{ animationDelay: '0.3s' }}>
-                <button className="bg-gradient-to-r from-primary to-surface-tint text-on-primary px-8 py-4 rounded-xl shadow-[0_8px_16px_rgba(0,76,205,0.2)] hover:shadow-[0_12px_24px_rgba(0,76,205,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-[14px] font-semibold">
+                <button
+                  onClick={() => navigate('/login')}
+                  className="bg-gradient-to-r from-primary to-surface-tint text-on-primary px-8 py-4 rounded-xl shadow-[0_8px_16px_rgba(0,76,205,0.2)] hover:shadow-[0_12px_24px_rgba(0,76,205,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-[14px] font-semibold"
+                >
                   Get Started Free
                   <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </button>
-                <button className="glass-panel text-primary px-8 py-4 rounded-xl hover:bg-white/80 transition-all duration-300 flex items-center justify-center gap-2 text-[14px] font-semibold">
+                <button
+                  onClick={() => navigate('/coordinator/login')}
+                  className="glass-panel text-primary px-8 py-4 rounded-xl hover:bg-white/80 transition-all duration-300 flex items-center justify-center gap-2 text-[14px] font-semibold"
+                >
                   I'm a Placement Coordinator
                 </button>
               </div>
@@ -187,9 +195,8 @@ export default function LandingPage() {
                     Track your readiness trajectory over time. Share your verified AI-scored profile directly with university coordinators.
                   </p>
                 </div>
-                <div className="flex-1 w-full bg-surface-container/50 rounded-2xl p-4 border border-outline-variant/30 aspect-video flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5" />
-                  <span className="material-symbols-outlined text-[64px] text-outline-variant/40">monitoring</span>
+                <div className="flex-1 w-full rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm aspect-video">
+                  <img src="/dashboard-mockup.png" alt="Placement Dashboard Mockup" className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-500" />
                 </div>
               </div>
             </div>

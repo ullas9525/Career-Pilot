@@ -17,10 +17,16 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="hidden md:block text-(--font-label-md) text-[14px] text-primary border border-primary px-4 py-2 rounded-full hover:bg-primary/5 transition-colors duration-200">
+          <button
+            onClick={() => navigate('/login')}
+            className="hidden md:block text-(--font-label-md) text-[14px] text-primary border border-primary px-4 py-2 rounded-full hover:bg-primary/5 transition-colors duration-200"
+          >
             Login
           </button>
-          <button className="text-(--font-label-md) text-[14px] bg-primary text-on-primary px-6 py-2 rounded-full shadow-md hover:bg-primary/90 hover:shadow-lg transition-all duration-200 active:scale-95">
+          <button
+            onClick={() => navigate('/login')}
+            className="text-(--font-label-md) text-[14px] bg-primary text-on-primary px-6 py-2 rounded-full shadow-md hover:bg-primary/90 hover:shadow-lg transition-all duration-200 active:scale-95"
+          >
             Get Started
           </button>
         </div>
